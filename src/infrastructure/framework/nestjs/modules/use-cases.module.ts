@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CreateUserUseCase } from '../../../../user/application/use-case/create-user.user-case';
-import { IUserRepository } from '../../../../user/application/repository/user.repository.interface';
+import { CreateUserUseCase } from '../../../../user/application/use-cases/create-user.user-case';
+import { IUserRepository } from '../../../../user/application/repositories/user.repository.interface';
 import { InfrastructureModule } from './infrastructure.module';
 
 @Module({

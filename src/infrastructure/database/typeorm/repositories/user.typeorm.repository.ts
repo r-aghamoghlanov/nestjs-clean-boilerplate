@@ -1,19 +1,19 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { UserTypeOrmEntity } from '../entities/user.typeorm.entity';
+import { UserTypeOrmModel } from '../models/user.typeorm.model';
 import { User } from '../../../../user/domain/user.entity';
-import { IUserRepository } from '../../../../user/application/repository/user.repository.interface';
+import { IUserRepository } from '../../../../user/application/repositories/user.repository.interface';
 
 @Injectable()
 export class UserTypeOrmRepository implements IUserRepository {
   constructor(
-    @InjectRepository(UserTypeOrmEntity)
-    private readonly userRepository: Repository<UserTypeOrmEntity>,
+    @InjectRepository(UserTypeOrmModel)
+    private readonly userRepository: Repository<UserTypeOrmModel>,
   ) {}
 
   async create(user: User): Promise<User> {
-    const entity = this.toEntity(user);
+    const entity = this.toModel(user);
     const saved = await this.userRepository.save(entity);
     return this.toDomain(saved);
   }
@@ -23,7 +23,12 @@ export class UserTypeOrmRepository implements IUserRepository {
     return entity ? this.toDomain(entity) : null;
   }
 
-  private toDomain(entity: UserTypeOrmEntity): User {
+  async getAll(): Promise<User[]> {
+    const entities = await this.userRepository.find();
+    return entities.map((entity) => this.toDomain(entity));
+  }
+
+  private toDomain(entity: UserTypeOrmModel): User {
     return new User(
       entity.id,
       entity.email,
@@ -33,17 +38,17 @@ export class UserTypeOrmRepository implements IUserRepository {
     );
   }
 
-  private toEntity(user: User): UserTypeOrmEntity {
-    const entity = new UserTypeOrmEntity();
+  private toModel(user: User): UserTypeOrmModel {
+    const entity = new UserTypeOrmModel();
 
     if (user.isPersistent) {
-      entity.id = user.getId()!;
+      entity.id = user.id!;
     }
 
-    entity.email = user.getEmail();
-    entity.name = user.getName();
-    entity.createdAt = user.getCreatedAt();
-    entity.updatedAt = user.getUpdatedAt();
+    entity.email = user.email;
+    entity.name = user.name;
+    entity.createdAt = user.createdAt;
+    entity.updatedAt = user.updatedAt;
     return entity;
   }
 }

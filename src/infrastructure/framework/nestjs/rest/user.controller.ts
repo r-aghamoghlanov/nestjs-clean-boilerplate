@@ -1,7 +1,7 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { CreateUserInput } from '../../../../user/application/dto/create-user.dto';
+import { CreateUserInput } from '../../../../user/application/dtos/create-user.dto';
 import { UserController } from '../../../../user/adapters/controllers/user.controller';
-import { UserResponse } from '../../../../user/application/dto/user-response-dto';
+import { UserResponse } from '../../../../user/application/dtos/user-response-dto';
 
 @Controller('users')
 export class NestJSUserController {

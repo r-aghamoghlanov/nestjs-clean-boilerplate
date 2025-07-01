@@ -1,7 +1,7 @@
 // Pure presentation logic - NO FRAMEWORK DEPENDENCIES!
-import { CreateUserInput } from '../../application/dto/create-user.dto';
-import { UserResponse } from '../../application/dto/user-response-dto';
-import { CreateUserUseCase } from '../../application/use-case/create-user.user-case';
+import { CreateUserInput } from '../../application/dtos/create-user.dto';
+import { UserResponse } from '../../application/dtos/user-response-dto';
+import { CreateUserUseCase } from '../../application/use-cases/create-user.user-case';
 
 export class UserController {
   constructor(private readonly createUserUseCase: CreateUserUseCase) {}

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UserTypeOrmEntity } from '../../../database/typeorm/entities/user.typeorm.entity';
+import { UserTypeOrmModel } from '../../../database/typeorm/models/user.typeorm.model';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { UserTypeOrmEntity } from '../../../database/typeorm/entities/user.typeo
         database: configService.get('DB_NAME', 'postgres'),
 
         // Entities registration
-        entities: [UserTypeOrmEntity],
+        entities: [UserTypeOrmModel],
 
         // Auto-sync in development (disable in production!)
         synchronize: configService.get('NODE_ENV') !== 'production',

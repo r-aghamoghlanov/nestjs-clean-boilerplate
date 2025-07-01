@@ -1,10 +1,10 @@
 export class User {
   constructor(
-    private readonly id: number | null,
-    private email: string,
-    private name: string,
-    private readonly createdAt: Date = new Date(),
-    private updatedAt: Date = new Date(),
+    private readonly _id: number | null,
+    public email: string,
+    public name: string,
+    public readonly createdAt: Date = new Date(),
+    public updatedAt: Date = new Date(),
   ) {}
 
   // Business logic methods
@@ -15,24 +15,13 @@ export class User {
     this.name = newName;
     this.updatedAt = new Date();
   }
-
-  getId(): number | null {
-    return this.id;
-  }
-  getEmail(): string {
-    return this.email;
-  }
-  getName(): string {
-    return this.name;
-  }
-  getCreatedAt(): Date {
-    return this.createdAt;
-  }
-  getUpdatedAt(): Date {
-    return this.updatedAt;
+  equals(other: User) {
+    return this._id === other._id;
   }
 
-  // State checks
+  get id() {
+    return this._id;
+  }
   get isNew(): boolean {
     return this.id === null;
   }

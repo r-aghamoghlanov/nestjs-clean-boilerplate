@@ -1,7 +1,7 @@
-import { IUserRepository } from '../repository/user.repository.interface';
+import { IUserRepository } from '../repositories/user.repository.interface';
 import { User } from '../../domain/user.entity';
-import type { CreateUserInput } from '../dto/create-user.dto';
-import type { UserResponse } from '../dto/user-response-dto';
+import type { CreateUserInput } from '../dtos/create-user.dto';
+import type { UserResponse } from '../dtos/user-response-dto';
 
 export class CreateUserUseCase {
   // Constructor injection - NestJS will provide these dependencies
@@ -27,14 +27,14 @@ export class CreateUserUseCase {
       const savedUser = await this.userRepository.create(user);
 
       // STEP 5: Transform to response DTO
-      console.log('User created successfully', { userId: savedUser.getId() });
+      console.log('User created successfully', { userId: savedUser.id });
 
       return {
-        id: savedUser.getId()!,
-        email: savedUser.getEmail(),
-        name: savedUser.getName(),
-        createdAt: savedUser.getCreatedAt(),
-        updatedAt: savedUser.getUpdatedAt(),
+        id: savedUser.id!,
+        email: savedUser.email,
+        name: savedUser.name,
+        createdAt: savedUser.createdAt,
+        updatedAt: savedUser.updatedAt,
       };
     } catch (error) {
       console.error('Failed to create user', error);

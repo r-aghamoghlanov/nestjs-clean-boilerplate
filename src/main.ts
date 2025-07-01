@@ -1,10 +1,10 @@
+import type { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
 import { AppModule as NestAppModule } from './infrastructure/framework/nestjs/app.module';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ROUTES } from './infrastructure/framework/nestjs/rest/routes';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
-import { NestExpressApplication } from '@nestjs/platform-express';
 import morgan from 'morgan';
 
 async function bootstrap() {

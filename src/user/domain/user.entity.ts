@@ -1,11 +1,15 @@
-export class User {
+import { BaseEntity } from '../../shared/base.entity';
+
+export class User extends BaseEntity {
   constructor(
-    private readonly _id: number | null,
+    protected _id: number | null,
     public email: string,
     public name: string,
     public readonly createdAt: Date = new Date(),
     public updatedAt: Date = new Date(),
-  ) {}
+  ) {
+    super(_id);
+  }
 
   // Business logic methods
   updateName(newName: string): void {
@@ -14,18 +18,5 @@ export class User {
     }
     this.name = newName;
     this.updatedAt = new Date();
-  }
-  equals(other: User) {
-    return this._id === other._id;
-  }
-
-  get id() {
-    return this._id;
-  }
-  get isNew(): boolean {
-    return this.id === null;
-  }
-  get isPersistent(): boolean {
-    return this.id !== null;
   }
 }

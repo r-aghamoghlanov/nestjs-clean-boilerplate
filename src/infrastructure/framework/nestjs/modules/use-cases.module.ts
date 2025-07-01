@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { CreateUserUseCase } from '../../../../user/application/use-cases/create-user.user-case';
 import { IUserRepository } from '../../../../user/application/repositories/user.repository.interface';
 import { InfrastructureModule } from './infrastructure.module';
+import { PROVIDER_TOKENS } from './provider-tokens';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { InfrastructureModule } from './infrastructure.module';
       useFactory: (userRepository: IUserRepository) => {
         return new CreateUserUseCase(userRepository);
       },
-      inject: ['IUserRepository'],
+      inject: [PROVIDER_TOKENS.USER_REPOSITORY],
     },
   ],
   exports: [CreateUserUseCase],

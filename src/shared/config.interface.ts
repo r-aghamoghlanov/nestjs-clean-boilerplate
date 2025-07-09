@@ -4,6 +4,8 @@ export interface IDatabaseConfig {
   username: string;
   database: string;
   password?: string;
+  synchronizeModels?: boolean;
+  enableQueryLogging?: boolean;
 }
 
 export interface IS3Config {

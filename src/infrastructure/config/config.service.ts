@@ -9,7 +9,7 @@ export class ConfigService implements IConfigService {
   constructor(private readonly configService: NestConfigService) {
     const rawConfig = this.buildRawConfig();
     this._config = this.validateConfig(rawConfig);
-    console.log('Config loaded and validated');
+    console.log('Config loaded and validated', this._config);
   }
 
   get config(): IConfig {
@@ -24,6 +24,9 @@ export class ConfigService implements IConfigService {
         username: this.getCustomKey('DATABASE_USERNAME'),
         password: this.getCustomKey('DATABASE_PASSWORD'),
         database: this.getCustomKey('DATABASE_NAME'),
+        synchronizeModels: this.getCustomKey('SYNC_MODELS') === 'true',
+        enableQueryLogging:
+          this.getCustomKey('LOG_GENERATED_QUERIES') === 'true',
       },
       AWS: {
         s3: {

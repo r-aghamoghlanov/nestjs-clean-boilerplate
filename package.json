@@ -1,8 +1,8 @@
 {
-  "name": "project",
+  "name": "clean-architecture-boilerplate",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Clean Architecture with NestJS as a main framework",
+  "author": "Rustam Aghamoghlanov",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
@@ -17,7 +17,22 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "db:setup": "dropdb clean-architecture-boilerplate; createdb clean-architecture-boilerplate"
+  },
+  "scriptDescriptions": {
+    "build": "Build the project",
+    "format": "Format the code with prettier",
+    "start": "Start the project in production mode",
+    "start:dev": "Start the project in development mode",
+    "start:debug": "Start the project in debug mode",
+    "lint": "Lint the code with eslint",
+    "test": "Run tests",
+    "test:watch": "Run tests in watch mode",
+    "test:cov": "Run tests with coverage",
+    "test:debug": "Run tests in debug mode",
+    "test:e2e": "Run end-to-end tests",
+    "db:setup": "Drops and creates development database"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

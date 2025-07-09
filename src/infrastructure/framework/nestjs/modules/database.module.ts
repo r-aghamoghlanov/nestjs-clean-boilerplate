@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserTypeOrmModel } from '../../../database/typeorm/models/user.typeorm.model';
+// import { UserTypeOrmModel } from '../../../database/typeorm/models/user.typeorm.model';
 import { PROVIDER_TOKENS } from './provider-tokens';
 import { IConfigService } from '../../../../shared/config.interface';
 
@@ -10,7 +10,7 @@ import { IConfigService } from '../../../../shared/config.interface';
       useFactory: (configService: IConfigService) => {
         const dbConfig = configService.config.database;
         return {
-          type: 'postgres', // or 'mysql', 'sqlite', etc.
+          type: 'postgres',
           host: dbConfig.host,
           port: dbConfig.port,
           username: dbConfig.username,
@@ -18,19 +18,21 @@ import { IConfigService } from '../../../../shared/config.interface';
           database: dbConfig.database,
 
           // Entities registration
-          entities: [UserTypeOrmModel],
+          entities: [
+            __dirname + '/../../../database/typeorm/models/*.model.{ts,js}',
+          ],
 
           // Auto-sync in development (disable in production!)
-          synchronize: process.env.NODE_ENV !== 'production',
+          synchronize: dbConfig.synchronizeModels,
 
           // Logging
-          logging: process.env.NODE_ENV === 'development',
+          logging: dbConfig.enableQueryLogging,
 
           // Connection pool settings
-          // extra: {
-          //   max: 20, // Maximum number of connections
-          //   min: 5,  // Minimum number of connections
-          // },
+          extra: {
+            max: 10,
+            min: 2,
+          },
         };
       },
       inject: [PROVIDER_TOKENS.SERVICES.CONFIG_PROVIDER],

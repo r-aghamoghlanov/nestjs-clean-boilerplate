@@ -11,6 +11,8 @@ const DatabaseConfigSchema = z.object({
   username: z.string().min(1, 'Database username is required'),
   password: z.string().optional(),
   database: z.string().min(1, 'Database name is required'),
+  synchronizeModels: z.boolean().optional(),
+  enableQueryLogging: z.boolean().optional(),
 }) satisfies z.ZodType<IDatabaseConfig>;
 
 const S3ConfigSchema = z.object({

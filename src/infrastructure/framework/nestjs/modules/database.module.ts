@@ -8,7 +8,7 @@ import { IConfigService } from '../../../../shared/config.interface';
   imports: [
     TypeOrmModule.forRootAsync({
       useFactory: (configService: IConfigService) => {
-        const dbConfig = configService.config.database;
+        const dbConfig = configService.dbConfig;
         return {
           type: 'postgres',
           host: dbConfig.host,

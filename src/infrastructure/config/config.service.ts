@@ -1,22 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService as NestConfigService } from '@nestjs/config';
-import { IConfig, IConfigService } from '../../shared/config.interface';
+import {
+  IConfig,
+  IConfigService,
+  IDatabaseConfig,
+  IAWSConfig,
+  IAppConfig,
+} from '../../shared/config.interface';
 import { ConfigSchema } from './config.validators';
+import { DeepPartial } from '../../shared/custom.types';
 
 @Injectable()
 export class ConfigService implements IConfigService {
-  private _config: IConfig;
+  private readonly _name = 'ConfigService';
+  private readonly _config: IConfig;
   constructor(private readonly configService: NestConfigService) {
-    const rawConfig = this.buildRawConfig();
-    this._config = this.validateConfig(rawConfig);
-    console.log('Config loaded and validated', this._config);
+    this._config = this.validateConfig(this.buildRawConfig());
+    console.debug(`[${this._name}] Config loaded and validated`, this._config);
   }
 
-  get config(): IConfig {
-    return this._config;
+  get dbConfig(): IDatabaseConfig {
+    return this._config.database;
   }
 
-  private buildRawConfig() {
+  get awsConfig(): IAWSConfig {
+    return this._config.AWS;
+  }
+
+  get appConfig(): IAppConfig {
+    return this._config.appConfig;
+  }
+
+  public getCustomKey(key: string): string | undefined {
+    return this.configService.get<string>(key);
+  }
+
+  private buildRawConfig(): DeepPartial<IConfig> {
     return {
       database: {
         host: this.getCustomKey('DATABASE_HOST'),
@@ -35,11 +54,13 @@ export class ConfigService implements IConfigService {
           region: this.getCustomKey('AWS_REGION'),
         },
       },
-      appPort: Number(this.getCustomKey('PORT') ?? 3000),
+      appConfig: {
+        port: Number(this.getCustomKey('PORT') ?? 3000),
+      },
     };
   }
 
-  private validateConfig(rawConfig: Record<string, unknown>): IConfig {
+  private validateConfig(rawConfig: DeepPartial<IConfig>): IConfig {
     try {
       const validatedConfig = ConfigSchema.parse(rawConfig);
       return validatedConfig;
@@ -49,9 +70,5 @@ export class ConfigService implements IConfigService {
       }
       throw new Error('Configuration validation failed with unknown error');
     }
-  }
-
-  private getCustomKey(key: string): string | undefined {
-    return this.configService.get<string>(key);
   }
 }

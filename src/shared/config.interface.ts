@@ -14,14 +14,23 @@ export interface IS3Config {
   region: string;
 }
 
+export interface IAWSConfig {
+  s3: IS3Config;
+}
+
+export interface IAppConfig {
+  port: number;
+}
+
 export interface IConfig {
   database: IDatabaseConfig;
-  AWS: {
-    s3: IS3Config;
-  };
-  appPort: number;
+  AWS: IAWSConfig;
+  appConfig: IAppConfig;
 }
 
 export interface IConfigService {
-  get config(): IConfig;
+  getCustomKey(key: string): string | undefined;
+  get dbConfig(): IDatabaseConfig;
+  get awsConfig(): IAWSConfig;
+  get appConfig(): IAppConfig;
 }

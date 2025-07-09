@@ -48,10 +48,11 @@ $ mau deploy
 With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
 
 ## Features
+
 - [x] Clear separation between Business & Domain Layers / Infrastructure Layer
 - [x] Agnostic Database Layer
   - [x] TypeORM integration
-- [ ] Agnostic Cron Jobs & Batch Jobs Processing Module 
+- [ ] Agnostic Cron Jobs & Batch Jobs Processing Module
   - [ ] BullMQ integration
 - [ ] Agnostic Mailer Module
   - [ ] Nodemailer integration
@@ -61,5 +62,5 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
   - [ ] Pino Logger integration
 - [ ] Unified Error Handling
   - [ ] Custom Exception Filters
-- [ ] Dynamic Env Configuration (To decide)
+- [x] Env Configuration
 - [ ] Zod validation + OpenAPI (Swagger) integration

@@ -22,10 +22,17 @@ export interface IAppConfig {
   port: number;
 }
 
+export interface ISwaggerConfig {
+  enabled: boolean;
+  user?: string;
+  password?: string;
+}
+
 export interface IConfig {
   database: IDatabaseConfig;
   AWS: IAWSConfig;
-  appConfig: IAppConfig;
+  app: IAppConfig;
+  swagger: ISwaggerConfig;
 }
 
 export interface IConfigService {

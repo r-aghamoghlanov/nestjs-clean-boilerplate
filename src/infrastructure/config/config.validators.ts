@@ -4,6 +4,7 @@ import {
   IS3Config,
   IAppConfig,
   IAWSConfig,
+  ISwaggerConfig,
 } from '../../shared/config.interface';
 import { z } from 'zod';
 
@@ -34,10 +35,36 @@ const AppConfigSchema = z.object({
   port: z.number().int().positive('App port must be a positive integer'),
 }) satisfies z.ZodType<IAppConfig>;
 
+/** SWAGGER SCHEMA */
+const SwaggerConfigSchema = z
+  .object({
+    enabled: z.boolean(),
+    user: z.string().optional(),
+    password: z.string().optional(),
+  })
+  .refine(
+    (data) => {
+      if (data.enabled) {
+        return (
+          data.user &&
+          data.password &&
+          data.user.length > 0 &&
+          data.password.length > 0
+        );
+      }
+      return true;
+    },
+    {
+      message: 'Swagger user and password are required when enabled is true',
+      path: ['user', 'password'],
+    },
+  ) satisfies z.ZodType<ISwaggerConfig>;
+
 const ConfigSchema = z.object({
   database: DatabaseConfigSchema,
   AWS: AWSConfigSchema,
-  appConfig: AppConfigSchema,
+  app: AppConfigSchema,
+  swagger: SwaggerConfigSchema,
 }) satisfies z.ZodType<IConfig>;
 
 export { ConfigSchema, DatabaseConfigSchema, S3ConfigSchema };

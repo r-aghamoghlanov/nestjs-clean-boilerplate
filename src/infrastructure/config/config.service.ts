@@ -6,6 +6,7 @@ import {
   IDatabaseConfig,
   IAWSConfig,
   IAppConfig,
+  ISwaggerConfig,
 } from '../../shared/config.interface';
 import { ConfigSchema } from './config.validators';
 import { DeepPartial } from '../../shared/custom.types';
@@ -28,11 +29,15 @@ export class ConfigService implements IConfigService {
   }
 
   get appConfig(): IAppConfig {
-    return this._config.appConfig;
+    return this._config.app;
   }
 
   public getCustomKey(key: string): string | undefined {
     return this.configService.get<string>(key);
+  }
+
+  get swaggerConfig(): ISwaggerConfig {
+    return this._config.swagger;
   }
 
   private buildRawConfig(): DeepPartial<IConfig> {
@@ -54,8 +59,13 @@ export class ConfigService implements IConfigService {
           region: this.getCustomKey('AWS_REGION'),
         },
       },
-      appConfig: {
+      app: {
         port: Number(this.getCustomKey('PORT') ?? 3000),
+      },
+      swagger: {
+        enabled: this.getCustomKey('ENABLE_SWAGGER_UI') === 'true',
+        user: this.getCustomKey('API_DOCS_USER'),
+        password: this.getCustomKey('API_DOCS_PASS'),
       },
     };
   }

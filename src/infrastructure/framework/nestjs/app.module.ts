@@ -3,15 +3,13 @@ import { InfrastructureModule } from './modules/infrastructure.module';
 import { UseCasesModule } from './modules/use-cases.module';
 import { AdaptersModule } from './modules/adapters.module';
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule } from './modules/config.module';
 import { HealthCheckController } from './healthcheck.controller';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({
-      isGlobal: true,
-      envFilePath: '.env',
-    }),
+    // Configuration module (global)
+    ConfigModule,
 
     // Database configuration
     DatabaseModule,

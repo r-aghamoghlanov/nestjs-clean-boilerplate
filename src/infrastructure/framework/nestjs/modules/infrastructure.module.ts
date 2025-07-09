@@ -7,12 +7,11 @@ import { PROVIDER_TOKENS } from './provider-tokens';
 @Module({
   imports: [TypeOrmModule.forFeature([UserTypeOrmModel])],
   providers: [
-    UserTypeOrmRepository,
     {
-      provide: PROVIDER_TOKENS.USER_REPOSITORY,
       useClass: UserTypeOrmRepository,
+      provide: PROVIDER_TOKENS.REPOSITORIES.USER_REPOSITORY,
     },
   ],
-  exports: [PROVIDER_TOKENS.USER_REPOSITORY],
+  exports: [PROVIDER_TOKENS.REPOSITORIES.USER_REPOSITORY],
 })
 export class InfrastructureModule {}

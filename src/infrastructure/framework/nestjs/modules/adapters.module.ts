@@ -3,9 +3,13 @@ import { CreateUserUseCase } from 'src/user/application/use-cases/create-user.us
 import { UserController } from '../../../../user/adapters/controllers/user.controller';
 import { NestJSUserController } from '../rest/user.controller';
 import { UseCasesModule } from './use-cases.module';
+import { PROVIDER_TOKENS } from './provider-tokens';
 
 @Module({
-  imports: [UseCasesModule],
+  imports: [
+    // Import use cases module to get the use-cases implementation
+    UseCasesModule,
+  ],
   providers: [
     // Pure presentation controllers
     {
@@ -13,25 +17,12 @@ import { UseCasesModule } from './use-cases.module';
       useFactory: (createUserUseCase: CreateUserUseCase) => {
         return new UserController(createUserUseCase);
       },
-      inject: [CreateUserUseCase],
-    },
-
-    // NestJS-specific adapters
-    {
-      provide: NestJSUserController,
-      useFactory: (userController: UserController) => {
-        return new NestJSUserController(userController);
-      },
-      inject: [UserController],
+      inject: [PROVIDER_TOKENS.SERVICES.CREATE_USER_USE_CASE],
     },
   ],
   controllers: [
     // Only NestJS controllers are registered here
     NestJSUserController,
-  ],
-  exports: [
-    // Export pure controllers if other modules need them
-    UserController,
   ],
 })
 export class AdaptersModule {}

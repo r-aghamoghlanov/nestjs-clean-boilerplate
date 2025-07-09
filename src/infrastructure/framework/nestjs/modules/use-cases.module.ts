@@ -6,18 +6,18 @@ import { PROVIDER_TOKENS } from './provider-tokens';
 
 @Module({
   imports: [
-    // Import infrastructure to get repository implementations
+    // Import infrastructure module to get repository implementations
     InfrastructureModule,
   ],
   providers: [
     {
-      provide: CreateUserUseCase,
+      provide: PROVIDER_TOKENS.SERVICES.CREATE_USER_USE_CASE,
       useFactory: (userRepository: IUserRepository) => {
         return new CreateUserUseCase(userRepository);
       },
-      inject: [PROVIDER_TOKENS.USER_REPOSITORY],
+      inject: [PROVIDER_TOKENS.REPOSITORIES.USER_REPOSITORY],
     },
   ],
-  exports: [CreateUserUseCase],
+  exports: [PROVIDER_TOKENS.SERVICES.CREATE_USER_USE_CASE],
 })
 export class UseCasesModule {}

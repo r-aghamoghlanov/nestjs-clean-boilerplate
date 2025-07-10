@@ -1,5 +1,3 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService as NestConfigService } from '@nestjs/config';
 import {
   IConfig,
   IConfigService,
@@ -10,12 +8,16 @@ import {
 } from '../../shared/config.interface';
 import { ConfigSchema } from './config.validators';
 import { DeepPartial } from '../../shared/custom.types';
+import dotenv from 'dotenv';
 
-@Injectable()
-export class ConfigService implements IConfigService {
+dotenv.config({ path: '.env' });
+
+type Env = { [k: string]: string | undefined };
+class ConfigService implements IConfigService {
   private readonly _name = 'ConfigService';
   private readonly _config: IConfig;
-  constructor(private readonly configService: NestConfigService) {
+
+  constructor(private env: Env) {
     this._config = this.validateConfig(this.buildRawConfig());
     console.debug(`[${this._name}] Config loaded and validated`, this._config);
   }
@@ -33,7 +35,7 @@ export class ConfigService implements IConfigService {
   }
 
   public getCustomKey(key: string): string | undefined {
-    return this.configService.get<string>(key);
+    return this.env[key];
   }
 
   get swaggerConfig(): ISwaggerConfig {
@@ -82,3 +84,5 @@ export class ConfigService implements IConfigService {
     }
   }
 }
+
+export const configService = new ConfigService(process.env);

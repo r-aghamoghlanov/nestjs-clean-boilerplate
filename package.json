@@ -18,7 +18,12 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "db:setup": "dropdb clean-architecture-boilerplate; createdb clean-architecture-boilerplate"
+    "typeorm": "npm run build && npx typeorm -d dist/infrastructure/database/typeorm/datasource.js",
+    "db:setup": "dropdb clean-architecture-boilerplate; createdb clean-architecture-boilerplate",
+    "db:migration:generate": "npm run typeorm -- migration:generate src/infrastructure/database/typeorm/migrations/$npm_config_name-migration",
+    "db:migration:create": "npm run typeorm -- migration:create src/infrastructure/database/typeorm/migrations/$npm_config_name-migration",
+    "db:migration:revert": "npm run typeorm -- migration:revert",
+    "db:migration:run": "npm run typeorm -- migration:run"
   },
   "scriptDescriptions": {
     "build": "Build the project",
@@ -32,7 +37,11 @@
     "test:cov": "Run tests with coverage",
     "test:debug": "Run tests in debug mode",
     "test:e2e": "Run end-to-end tests",
-    "db:setup": "Drops and creates development database"
+    "db:setup": "Drops and creates development database",
+    "db:migration:generate": "Generate a new migration based on the state of the models (e.g. npm run db:migration:generate --name=user)",
+    "db:migration:create": "Create a new empty migration (e.g. npm run db:migration:create --name=user)",
+    "db:migration:revert": "Revert the last migration",
+    "db:migration:run": "Run all pending migrations"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

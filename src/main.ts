@@ -9,16 +9,11 @@ import morgan from 'morgan';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import basicAuth from 'express-basic-auth';
-import { PROVIDER_TOKENS } from './infrastructure/framework/nestjs/modules/provider-tokens';
-import { ConfigService } from './infrastructure/config/config.service';
+import { configService } from './infrastructure/config/config.service';
 
 patchNestJsSwagger();
 
 function setupSwagger(app: NestExpressApplication) {
-  const configService = app.get<ConfigService>(
-    PROVIDER_TOKENS.SERVICES.CONFIG_PROVIDER,
-  );
-
   const { user: apiDocsUser, password: apiDocsPass } =
     configService.swaggerConfig;
 
@@ -52,9 +47,9 @@ function setupSwagger(app: NestExpressApplication) {
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(NestAppModule);
-  const configService = app.get<ConfigService>(
-    PROVIDER_TOKENS.SERVICES.CONFIG_PROVIDER,
-  );
+  // const configService = app.get<ConfigService>(
+  //   PROVIDER_TOKENS.SERVICES.CONFIG_PROVIDER,
+  // );
 
   app.setGlobalPrefix(ROUTES.MAIN_PATH);
 

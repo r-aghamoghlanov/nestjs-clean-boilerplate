@@ -3,7 +3,6 @@ export const PROVIDER_TOKENS = {
     USER_REPOSITORY: Symbol.for('USER_REPOSITORY'),
   },
   SERVICES: {
-    CONFIG_PROVIDER: Symbol.for('CONFIG_PROVIDER'),
     CREATE_USER_USE_CASE: Symbol.for('CREATE_USER_USE_CASE'),
   },
 };

@@ -51,9 +51,9 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
 
 - [x] Clear separation between Business & Domain Layers / Infrastructure Layer
 - [x] Agnostic Database Layer
-  - [ ] TypeORM integration
+  - [x] TypeORM integration
     - [x] TypeORM Main Configuration
-    - [ ] Typeorm Migration Configuration
+    - [x] Typeorm Migration Configuration
 - [ ] Agnostic Cron Jobs & Batch Jobs Processing Module
   - [ ] BullMQ integration
 - [ ] Agnostic Mailer Module

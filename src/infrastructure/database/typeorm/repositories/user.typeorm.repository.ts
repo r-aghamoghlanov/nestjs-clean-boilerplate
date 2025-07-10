@@ -14,8 +14,23 @@ export class UserTypeOrmRepository implements IUserRepository {
 
   async create(user: User): Promise<User> {
     const entity = this.toModel(user);
-    const saved = await this.userRepository.save(entity);
-    return this.toDomain(saved);
+    await this.userRepository.insert(entity);
+    return this.toDomain(entity);
+  }
+
+  async update(user: User): Promise<User> {
+    const entity = this.toModel(user);
+    await this.userRepository.update(entity.id, entity);
+    return this.toDomain(entity);
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.userRepository.delete(id);
+  }
+
+  async getById(id: number): Promise<User> {
+    const entity = await this.userRepository.findOneOrFail({ where: { id } });
+    return this.toDomain(entity);
   }
 
   async findByEmail(email: string): Promise<User | null> {

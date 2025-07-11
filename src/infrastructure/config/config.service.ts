@@ -6,8 +6,8 @@ import {
   IAppConfig,
   ISwaggerConfig,
 } from '../../shared/config.interface';
-import { ConfigSchema } from './config.validators';
-import { DeepPartial } from '../../shared/custom.types';
+import { ConfigSchema } from './config.validator';
+import { DeepPartial } from '../../shared/custom.type';
 import dotenv from 'dotenv';
 
 dotenv.config({ path: '.env' });

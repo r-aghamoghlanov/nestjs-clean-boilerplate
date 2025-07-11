@@ -1,0 +1,64 @@
+import { errorMessagesConstants } from './error-messages.constant';
+import type {
+  IErrorMessages,
+  ErrorLanguage,
+  ErrorMessageCode,
+} from './error-message.type';
+
+export class MessageCodeError extends Error {
+  public messageCode: ErrorMessageCode;
+
+  public statusCode: number;
+
+  public internalErrorMessage: string;
+
+  public userErrorMessage: string;
+
+  public errorBody?: string;
+
+  public errorData?: Record<string, unknown> | Record<string, unknown>[];
+
+  public statusText: string;
+
+  constructor(
+    messageCode: ErrorMessageCode,
+    errorData?: Record<string, unknown> | Record<string, unknown>[],
+    errorBody?: string,
+  ) {
+    super();
+
+    const errorMessageConfig = this.getErrorMessageConfig(messageCode);
+
+    Error.captureStackTrace(this, this.constructor);
+    this.name = this.constructor.name;
+    this.statusCode = errorMessageConfig.statusCode;
+    this.statusText = errorMessageConfig.statusText;
+    this.messageCode = messageCode;
+    this.internalErrorMessage = errorMessageConfig.errorMessage;
+    // On first instantiation, we use english as default language
+    // Based on the user's language, we'll select the appropriate language using `localize` method
+    this.userErrorMessage = errorMessageConfig.userMessage.en;
+    this.errorBody = errorBody;
+    this.errorData = errorData;
+  }
+
+  /**
+   * @description: Find the error config by the given message code.
+   * @param {ErrorMessageCode} messageCode
+   * @return {IErrorMessages}
+   */
+  private getErrorMessageConfig(messageCode: ErrorMessageCode): IErrorMessages {
+    return errorMessagesConstants[messageCode];
+  }
+
+  public static localize(exception: MessageCodeError, language: ErrorLanguage) {
+    const userMessage =
+      errorMessagesConstants[exception.messageCode].userMessage[language];
+
+    if (exception.errorBody) {
+      return userMessage.replace('{{errorBody}}', exception.errorBody);
+    }
+
+    return userMessage;
+  }
+}

@@ -2,6 +2,7 @@ import { IUserRepository } from '../repositories/user.repository.interface';
 import { User } from '../../domain/user.entity';
 import type { CreateUserInput } from '../dtos/create-user.dto';
 import type { UserResponse } from '../dtos/user-response-dto';
+import { MessageCodeError } from '@shared/errors/message-code.error';
 
 export class CreateUserUseCase {
   // Constructor injection - NestJS will provide these dependencies
@@ -17,7 +18,9 @@ export class CreateUserUseCase {
       // STEP 2: Business rule validation (using injected repository)
       const existingUser = await this.userRepository.findByEmail(dto.email);
       if (existingUser) {
-        throw new Error('User with this email already exists');
+        throw new MessageCodeError('validation:error', {
+          email: dto.email,
+        });
       }
 
       // STEP 3: Create domain entity (pure business logic)

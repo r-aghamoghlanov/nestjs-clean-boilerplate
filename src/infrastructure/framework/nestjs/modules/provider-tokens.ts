@@ -5,4 +5,7 @@ export const PROVIDER_TOKENS = {
   SERVICES: {
     CREATE_USER_USE_CASE: Symbol.for('CREATE_USER_USE_CASE'),
   },
+  LOGGERS: {
+    LOGGER: Symbol.for('LOGGER'),
+  },
 };

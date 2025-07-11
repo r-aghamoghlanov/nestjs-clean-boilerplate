@@ -1,11 +1,19 @@
-import { ILogger } from '@shared/logger.interface';
+import { ILogger } from '@shared/logger/logger.interface';
 import pino from 'pino';
 
 export class PinoLogger implements ILogger {
   private readonly logger: pino.Logger;
 
   constructor() {
-    this.logger = pino({ transport: { target: 'pino-pretty' } });
+    this.logger = pino({
+      level: 'info',
+      transport: {
+        target: 'pino-pretty',
+        options: {
+          colorize: true,
+        },
+      },
+    });
   }
 
   public log(message: string): void {

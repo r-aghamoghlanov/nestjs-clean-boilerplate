@@ -2,8 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserTypeOrmModel } from '../models/user.typeorm.model';
-import { User } from '../../../../core/user/domain/user.entity';
-import { IUserRepository } from '../../../../core/user/application/repositories/user.repository.interface';
+import { User } from '@core/user/domain/user.entity';
+import { IUserRepository } from '@core/user/application/repositories/user.repository.interface';
 
 @Injectable()
 export class UserTypeOrmRepository implements IUserRepository {

@@ -1,13 +1,13 @@
 import { Module } from '@nestjs/common';
 import { CreateUserUseCase } from '@core/user/application/use-cases/create-user.user-case';
 import { IUserRepository } from '@core/user/application/repositories/user.repository.interface';
-import { InfrastructureModule } from './infrastructure.module';
 import { PROVIDER_TOKENS } from './provider-tokens';
+import { RepositoryModule } from './repository.module';
 
 @Module({
   imports: [
-    // Import infrastructure module to get repository implementations
-    InfrastructureModule,
+    // Import repository module to get repository implementations
+    RepositoryModule,
   ],
   providers: [
     {

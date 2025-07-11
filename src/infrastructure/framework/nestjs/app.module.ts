@@ -1,5 +1,5 @@
 import { DatabaseModule } from './modules/database.module';
-import { InfrastructureModule } from './modules/infrastructure.module';
+import { RepositoryModule } from './modules/repository.module';
 import { UseCasesModule } from './modules/use-cases.module';
 import { AdaptersModule } from './modules/adapters.module';
 import { Module } from '@nestjs/common';
@@ -9,12 +9,7 @@ import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { GlobalExceptionFilter } from './filters/global-exception.filter';
 
 @Module({
-  imports: [
-    DatabaseModule,
-    InfrastructureModule,
-    UseCasesModule,
-    AdaptersModule,
-  ],
+  imports: [DatabaseModule, RepositoryModule, UseCasesModule, AdaptersModule],
   providers: [
     // Register Global validation pipe
     {

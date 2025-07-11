@@ -1,12 +1,11 @@
 import { errorMessagesConstants } from './error-messages.constant';
 import { HttpStatus } from './error-statuses.constant';
+import { Language } from '@shared/language.constant';
 
 export type HttpStatus = (typeof HttpStatus)[keyof typeof HttpStatus];
 
-export type ErrorLanguage = 'az' | 'en' | 'ru';
-
 export type UserErrorMessage = {
-  [key in ErrorLanguage]: string;
+  [key in Language]: string;
 };
 
 export interface IErrorMessages {

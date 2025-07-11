@@ -1,9 +1,7 @@
+import type { Language } from '@shared/language.constant';
+import type { IErrorMessages, ErrorMessageCode } from './error-message.type';
+
 import { errorMessagesConstants } from './error-messages.constant';
-import type {
-  IErrorMessages,
-  ErrorLanguage,
-  ErrorMessageCode,
-} from './error-message.type';
 
 export class MessageCodeError extends Error {
   public messageCode: ErrorMessageCode;
@@ -16,13 +14,13 @@ export class MessageCodeError extends Error {
 
   public errorBody?: string;
 
-  public errorData?: Record<string, unknown> | Record<string, unknown>[];
+  public errorData?: Record<string, unknown>;
 
   public statusText: string;
 
   constructor(
     messageCode: ErrorMessageCode,
-    errorData?: Record<string, unknown> | Record<string, unknown>[],
+    errorData?: Record<string, unknown>,
     errorBody?: string,
   ) {
     super();
@@ -51,7 +49,7 @@ export class MessageCodeError extends Error {
     return errorMessagesConstants[messageCode];
   }
 
-  public static localize(exception: MessageCodeError, language: ErrorLanguage) {
+  public static localize(exception: MessageCodeError, language: Language) {
     const userMessage =
       errorMessagesConstants[exception.messageCode].userMessage[language];
 

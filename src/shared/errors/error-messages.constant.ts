@@ -27,9 +27,9 @@ export const errorMessagesConstants = {
   'validation:error': {
     statusText: HttpStatus.BAD_REQUEST.description,
     statusCode: HttpStatus.BAD_REQUEST.code,
-    errorMessage: 'Validation error',
+    errorMessage: 'Internal Validation error',
     userMessage: {
-      en: 'Sosal? Validation error',
+      en: 'Validation Error',
       az: 'Doğrulama xətası',
       ru: 'Ошибка проверки',
     },
@@ -52,6 +52,27 @@ export const errorMessagesConstants = {
       en: 'Invalid phone number',
       az: 'Yanlış telefon nömrəsi',
       ru: 'Неверный номер телефона',
+    },
+  },
+  /** -----------------------USER ERRORS-----------------------*/
+  'user:notFound': {
+    statusText: HttpStatus.NOT_FOUND.description,
+    statusCode: HttpStatus.NOT_FOUND.code,
+    errorMessage: 'User not found',
+    userMessage: {
+      en: 'User not found',
+      az: 'İstifadəçi tapılmadı',
+      ru: 'Пользователь не найден',
+    },
+  },
+  'user:alreadyExists': {
+    statusText: HttpStatus.CONFLICT.description,
+    statusCode: HttpStatus.CONFLICT.code,
+    errorMessage: 'User already exists with this email',
+    userMessage: {
+      en: 'User already exists with this email',
+      az: 'Bu email artıq mövcuddur',
+      ru: 'Введённый email занят',
     },
   },
 } as const satisfies Record<string, IErrorMessages>;

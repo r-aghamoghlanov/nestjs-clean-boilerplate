@@ -18,7 +18,7 @@ export class CreateUserUseCase {
       // STEP 2: Business rule validation (using injected repository)
       const existingUser = await this.userRepository.findByEmail(dto.email);
       if (existingUser) {
-        throw new MessageCodeError('validation:error', {
+        throw new MessageCodeError('user:alreadyExists', {
           email: dto.email,
         });
       }

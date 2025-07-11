@@ -5,7 +5,8 @@ import { AdaptersModule } from './modules/adapters.module';
 import { Module } from '@nestjs/common';
 import { HealthCheckController } from './healthcheck.controller';
 import { ZodValidationPipe } from 'nestjs-zod';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { GlobalExceptionFilter } from './filters/global-exception.filter';
 
 @Module({
   imports: [
@@ -19,6 +20,10 @@ import { APP_PIPE } from '@nestjs/core';
     {
       provide: APP_PIPE,
       useClass: ZodValidationPipe,
+    },
+    {
+      provide: APP_FILTER,
+      useClass: GlobalExceptionFilter,
     },
   ],
   controllers: [HealthCheckController],

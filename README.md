@@ -62,7 +62,7 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
   - [ ] Redis Cache Integration
 - [ ] Agnostic Unified Logging
   - [ ] Pino Logger integration
-- [ ] Unified Error Handling
-  - [ ] Custom Exception Filters
+- [x] Unified Error Handling
+  - [x] Custom Exception Filters
 - [x] Env Configuration
 - [x] Zod validation + OpenAPI (Swagger) integration

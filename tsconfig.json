@@ -23,9 +23,9 @@
     "paths": {
       "@shared/*": ["src/shared/*"],
       "@config/*": ["src/infrastructure/config/*"],
-      "@entities/*": ["src/infrastructure/database/entities/*"],
       "@database/*": ["src/infrastructure/database/*"],
-      "@framework/*": ["src/infrastructure/framework/*"]
+      "@framework/*": ["src/infrastructure/framework/*"],
+      "@core/*": ["src/core/*"]
     }
   }
 }

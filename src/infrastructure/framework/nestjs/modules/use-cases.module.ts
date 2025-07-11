@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CreateUserUseCase } from '../../../../user/application/use-cases/create-user.user-case';
-import { IUserRepository } from '../../../../user/application/repositories/user.repository.interface';
+import { CreateUserUseCase } from '@core/user/application/use-cases/create-user.user-case';
+import { IUserRepository } from '@core/user/application/repositories/user.repository.interface';
 import { InfrastructureModule } from './infrastructure.module';
 import { PROVIDER_TOKENS } from './provider-tokens';
 

@@ -5,7 +5,7 @@ import {
   IAppConfig,
   IAWSConfig,
   ISwaggerConfig,
-} from '../../shared/config.interface';
+} from '@shared/config.interface';
 import { z } from 'zod';
 
 /** DATABASE SCHEMA */

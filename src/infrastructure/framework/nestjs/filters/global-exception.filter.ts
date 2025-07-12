@@ -10,6 +10,7 @@ import { Request, Response } from 'express';
 import { Language } from '@shared/language.constant';
 import { HttpStatus } from '@shared/errors/error-statuses.constant';
 import { ZodValidationException } from 'nestjs-zod';
+import { LoggerRegistry } from '@shared/logger/logger-registry';
 
 type ErrorStruct = {
   message: string;
@@ -32,7 +33,9 @@ type ErrorResponsePayload = {
 
 @Catch()
 export class GlobalExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(GlobalExceptionFilter.name);
+  private readonly logger = LoggerRegistry.createLogger(
+    GlobalExceptionFilter.name,
+  );
 
   public catch(exception: Error, host: ArgumentsHost) {
     const hostType = host.getType();
@@ -43,7 +46,7 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       const request = ctx.getRequest<Request>();
 
       const responsePayload = this.prepareResponsePayload(exception, request);
-      this.logger.error(responsePayload);
+      this.logger.info(responsePayload);
       return response.status(responsePayload.statusCode).json(responsePayload);
     }
     // TODO: Implement ws, rpc, etc.

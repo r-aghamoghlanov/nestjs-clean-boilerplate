@@ -1,3 +1,5 @@
+import { LogLevel } from './logger/logger.interface';
+
 export interface IDatabaseConfig {
   host: string;
   port: number;
@@ -20,6 +22,8 @@ export interface IAWSConfig {
 
 export interface IAppConfig {
   port: number;
+  logLevel: LogLevel;
+  enableHttpLogging?: boolean;
 }
 
 export interface ISwaggerConfig {

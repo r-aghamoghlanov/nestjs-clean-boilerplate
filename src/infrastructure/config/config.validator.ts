@@ -6,6 +6,7 @@ import {
   IAWSConfig,
   ISwaggerConfig,
 } from '@shared/config.interface';
+import { LogLevel } from '@shared/logger/logger.interface';
 import { z } from 'zod';
 
 /** DATABASE SCHEMA */
@@ -33,6 +34,8 @@ const AWSConfigSchema = z.object({
 /** APP SCHEMA */
 const AppConfigSchema = z.object({
   port: z.number().int().positive('App port must be a positive integer'),
+  logLevel: z.enum(['info', 'error', 'fatal', 'warn', 'debug', 'trace']),
+  enableHttpLogging: z.boolean().optional(),
 }) satisfies z.ZodType<IAppConfig>;
 
 /** SWAGGER SCHEMA */

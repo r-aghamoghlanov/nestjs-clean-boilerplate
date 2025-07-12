@@ -9,6 +9,7 @@ import {
 import { ConfigSchema } from './config.validator';
 import { DeepPartial } from '@shared/custom.type';
 import dotenv from 'dotenv';
+import { LogLevel } from '@shared/logger/logger.interface';
 
 dotenv.config({ path: '.env' });
 
@@ -63,6 +64,8 @@ class ConfigService implements IConfigService {
       },
       app: {
         port: Number(this.getCustomKey('PORT') ?? 3000),
+        logLevel: this.getCustomKey('LOG_LEVEL') as LogLevel,
+        enableHttpLogging: this.getCustomKey('ENABLE_HTTP_LOGGING') === 'true',
       },
       swagger: {
         enabled: this.getCustomKey('ENABLE_SWAGGER_UI') === 'true',

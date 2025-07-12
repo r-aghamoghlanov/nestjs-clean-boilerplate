@@ -5,11 +5,13 @@ import { VersioningType } from '@nestjs/common';
 import { ROUTES } from './infrastructure/framework/nestjs/rest/routes';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import basicAuth from 'express-basic-auth';
 import { configService } from './infrastructure/config/config.service';
+import { PinoLogger } from './infrastructure/logger/pino.logger';
+import { LoggerRegistry } from '@shared/logger/logger-registry';
+import { pinoHttp } from 'pino-http';
 
 patchNestJsSwagger();
 
@@ -46,10 +48,10 @@ function setupSwagger(app: NestExpressApplication) {
 }
 
 async function bootstrap() {
+  const pinoLogger = new PinoLogger(configService.appConfig.logLevel);
+  LoggerRegistry.initialize(pinoLogger);
+
   const app = await NestFactory.create<NestExpressApplication>(NestAppModule);
-  // const configService = app.get<ConfigService>(
-  //   PROVIDER_TOKENS.SERVICES.CONFIG_PROVIDER,
-  // );
 
   app.setGlobalPrefix(ROUTES.MAIN_PATH);
 
@@ -61,8 +63,15 @@ async function bootstrap() {
   app.enableCors();
   app.use(helmet());
   app.use(cookieParser());
-  app.use(morgan('tiny'));
   app.useBodyParser('json', { limit: '10mb' });
+
+  if (configService.appConfig.enableHttpLogging) {
+    app.use(
+      pinoHttp({
+        logger: pinoLogger.getPinoInstance(),
+      }),
+    );
+  }
 
   if (configService.swaggerConfig.enabled) {
     setupSwagger(app);

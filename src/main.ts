@@ -8,22 +8,24 @@ import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import basicAuth from 'express-basic-auth';
-import { configService } from './infrastructure/config/config.service';
+import { ConfigService } from './infrastructure/config/config.service';
 import { PinoLogger } from './infrastructure/logger/pino.logger';
-import { LoggerRegistry } from '@shared/logger/logger-registry';
+import { LoggerRegistry } from '@common/logger/logger-registry';
 import { pinoHttp } from 'pino-http';
+import { ConfigRegistry } from '@common/config/config-registry';
+import { MessageCodeError } from '@common/errors/message-code.error';
 
 patchNestJsSwagger();
 
 function setupSwagger(app: NestExpressApplication) {
   const { user: apiDocsUser, password: apiDocsPass } =
-    configService.swaggerConfig;
+    ConfigRegistry.config.swaggerConfig;
 
   if (!apiDocsUser || !apiDocsPass) {
-    throw new Error(
-      `Swagger UI is enabled but credentials are missing. Please check the .env file.
-      Due to security reasons, the server will not start.`,
-    );
+    throw new MessageCodeError('request:forbidden', {
+      message:
+        'Swagger UI is enabled but credentials are missing. Please check the .env file. Due to security reasons, the server will not start.',
+    });
   }
 
   const options = new DocumentBuilder()
@@ -48,8 +50,12 @@ function setupSwagger(app: NestExpressApplication) {
 }
 
 async function bootstrap() {
-  const pinoLogger = new PinoLogger(configService.appConfig.logLevel);
-  LoggerRegistry.initialize(pinoLogger);
+  // Initialize and register global config
+  const config = ConfigRegistry.initialize(new ConfigService(process.env));
+
+  // Initialize and register global logger
+  const pinoLogger = new PinoLogger(config.appConfig.logLevel);
+  const logger = LoggerRegistry.initialize(pinoLogger).createLogger('main');
 
   const app = await NestFactory.create<NestExpressApplication>(NestAppModule);
 
@@ -65,7 +71,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useBodyParser('json', { limit: '10mb' });
 
-  if (configService.appConfig.enableHttpLogging) {
+  if (config.appConfig.enableHttpLogging) {
     app.use(
       pinoHttp({
         logger: pinoLogger.getPinoInstance(),
@@ -73,14 +79,14 @@ async function bootstrap() {
     );
   }
 
-  if (configService.swaggerConfig.enabled) {
+  if (config.swaggerConfig.enabled) {
     setupSwagger(app);
   }
 
   await app
     .listen(process.env.PORT ?? 3000)
-    .then(() => console.log('Successfully started the book-library server'))
-    .catch((err) => console.log(err));
+    .then(() => logger.info('Successfully started the server'))
+    .catch((err) => logger.error(err));
 }
 
 void bootstrap();

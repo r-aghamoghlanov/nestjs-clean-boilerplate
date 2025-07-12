@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "@shared/*": ["src/core/shared/*"],
+      "@common/*": ["src/core/common/*"],
       "@config/*": ["src/infrastructure/config/*"],
       "@database/*": ["src/infrastructure/database/*"],
       "@framework/*": ["src/infrastructure/framework/*"],

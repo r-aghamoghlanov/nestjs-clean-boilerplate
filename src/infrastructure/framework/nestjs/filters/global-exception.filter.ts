@@ -5,12 +5,12 @@ import {
   HttpException,
   Logger,
 } from '@nestjs/common';
-import { MessageCodeError } from '@shared/errors/message-code.error';
+import { MessageCodeError } from '@common/errors/message-code.error';
 import { Request, Response } from 'express';
-import { Language } from '@shared/language.constant';
-import { HttpStatus } from '@shared/errors/error-statuses.constant';
+import { Language } from '@common/language.constant';
+import { HttpStatus } from '@common/errors/error-statuses.constant';
 import { ZodValidationException } from 'nestjs-zod';
-import { LoggerRegistry } from '@shared/logger/logger-registry';
+import { LoggerRegistry } from '@common/logger/logger-registry';
 
 type ErrorStruct = {
   message: string;

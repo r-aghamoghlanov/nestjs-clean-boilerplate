@@ -5,16 +5,16 @@ import {
   IAWSConfig,
   IAppConfig,
   ISwaggerConfig,
-} from '@shared/config.interface';
+} from '@common/config/config.interface';
 import { ConfigSchema } from './config.validator';
-import { DeepPartial } from '@shared/custom.type';
+import { DeepPartial } from '@common/custom.type';
 import dotenv from 'dotenv';
-import { LogLevel } from '@shared/logger/logger.interface';
+import { LogLevel } from '@common/logger/logger.interface';
 
 dotenv.config({ path: '.env' });
 
 type Env = { [k: string]: string | undefined };
-class ConfigService implements IConfigService {
+export class ConfigService implements IConfigService {
   private readonly _name = 'ConfigService';
   private readonly _config: IConfig;
 
@@ -35,12 +35,12 @@ class ConfigService implements IConfigService {
     return this._config.app;
   }
 
-  public getCustomKey(key: string): string | undefined {
-    return this.env[key];
-  }
-
   get swaggerConfig(): ISwaggerConfig {
     return this._config.swagger;
+  }
+
+  public getCustomKey(key: string): string | undefined {
+    return this.env[key];
   }
 
   private buildRawConfig(): DeepPartial<IConfig> {
@@ -87,5 +87,3 @@ class ConfigService implements IConfigService {
     }
   }
 }
-
-export const configService = new ConfigService(process.env);

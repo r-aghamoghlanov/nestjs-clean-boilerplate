@@ -2,7 +2,7 @@ import { IUserRepository } from '../repositories/user.repository.interface';
 import { User } from '../../domain/user.entity';
 import type { CreateUserInput } from '../dtos/create-user.dto';
 import type { UserResponse } from '../dtos/user-response-dto';
-import { MessageCodeError } from '@shared/errors/message-code.error';
+import { MessageCodeError } from '@common/errors/message-code.error';
 
 export class CreateUserUseCase {
   // Constructor injection - NestJS will provide these dependencies

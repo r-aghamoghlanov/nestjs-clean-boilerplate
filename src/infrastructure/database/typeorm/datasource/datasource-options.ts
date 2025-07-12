@@ -1,8 +1,8 @@
-import { DataSource, DataSourceOptions } from 'typeorm';
-import { configService } from '@config/config.service';
+import { DataSourceOptions } from 'typeorm';
+import { ConfigRegistry } from '@common/config/config-registry';
 
 export const getDataSourceOptions = (): DataSourceOptions => {
-  const dbConfig = configService.dbConfig;
+  const dbConfig = ConfigRegistry.config.dbConfig;
 
   return {
     type: 'postgres',
@@ -33,5 +33,3 @@ export const getDataSourceOptions = (): DataSourceOptions => {
     migrations: [__dirname + '/migrations/*.{ts,js}'],
   };
 };
-
-export default new DataSource(getDataSourceOptions());

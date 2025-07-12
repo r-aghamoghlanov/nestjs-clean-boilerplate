@@ -1,4 +1,4 @@
-import { BaseEntity } from '@shared/base.entity';
+import { BaseEntity } from '@common/base.entity';
 
 export class User extends BaseEntity {
   constructor(

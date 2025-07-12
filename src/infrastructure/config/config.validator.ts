@@ -5,8 +5,7 @@ import {
   IAppConfig,
   IAWSConfig,
   ISwaggerConfig,
-} from '@shared/config.interface';
-import { LogLevel } from '@shared/logger/logger.interface';
+} from '@common/config/config.interface';
 import { z } from 'zod';
 
 /** DATABASE SCHEMA */

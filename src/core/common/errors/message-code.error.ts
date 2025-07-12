@@ -1,4 +1,4 @@
-import type { Language } from '@shared/language.constant';
+import type { Language } from '@common/language.constant';
 import type { IErrorMessages, ErrorMessageCode } from './error-message.type';
 
 import { errorMessagesConstants } from './error-messages.constant';

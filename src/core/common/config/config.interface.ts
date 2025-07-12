@@ -1,4 +1,4 @@
-import { LogLevel } from './logger/logger.interface';
+import { LogLevel } from '../logger/logger.interface';
 
 export interface IDatabaseConfig {
   host: string;
@@ -44,4 +44,5 @@ export interface IConfigService {
   get dbConfig(): IDatabaseConfig;
   get awsConfig(): IAWSConfig;
   get appConfig(): IAppConfig;
+  get swaggerConfig(): ISwaggerConfig;
 }

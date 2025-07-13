@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-catch */
 import type { IUserRepository } from '../repositories/user.repository.interface';
 import type { CreateUserInput } from '../dtos/in/create-user.dto';
 import type { UserResponse } from '../dtos/out/user-response-dto';
@@ -30,40 +29,36 @@ export class CreateUserUseCase {
       return cachedUser;
     }
 
-    try {
-      // STEP 2: Business rule validation (using injected repository)
-      const existingUser = await this.userRepository.findByEmail(dto.email);
-      if (existingUser) {
-        throw new MessageCodeError('user:alreadyExists', {
-          email: dto.email,
-        });
-      }
-
-      // STEP 3: Create domain entity (pure business logic)
-      const user = new User(null, dto.email, dto.name);
-
-      // STEP 4: Persist using repository (using injected repository)
-      const savedUser = await this.userRepository.create(user);
-
-      // STEP 5: Cache the user
-      await this.cacheService.set(
-        savedUser.id!.toString(),
-        { email: savedUser.email },
-        60,
-      );
-
-      // STEP 6: Transform to response DTO
-      this.logger.info('User created successfully', { userId: savedUser.id });
-
-      return {
-        id: savedUser.id!,
-        email: savedUser.email,
-        name: savedUser.name,
-        createdAt: savedUser.createdAt,
-        updatedAt: savedUser.updatedAt,
-      };
-    } catch (error) {
-      throw error;
+    // STEP 2: Business rule validation (using injected repository)
+    const existingUser = await this.userRepository.findByEmail(dto.email);
+    if (existingUser) {
+      throw new MessageCodeError('user:alreadyExists', {
+        email: dto.email,
+      });
     }
+
+    // STEP 3: Create domain entity (pure business logic)
+    const user = new User(null, dto.email, dto.name);
+
+    // STEP 4: Persist using repository (using injected repository)
+    const savedUser = await this.userRepository.create(user);
+
+    // STEP 5: Cache the user
+    await this.cacheService.set(
+      savedUser.id!.toString(),
+      { email: savedUser.email },
+      60,
+    );
+
+    // STEP 6: Transform to response DTO
+    this.logger.info('User created successfully', { userId: savedUser.id });
+
+    return {
+      id: savedUser.id!,
+      email: savedUser.email,
+      name: savedUser.name,
+      createdAt: savedUser.createdAt,
+      updatedAt: savedUser.updatedAt,
+    };
   }
 }

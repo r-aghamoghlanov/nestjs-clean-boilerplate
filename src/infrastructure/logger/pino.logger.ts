@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
 /**
- * Most part of the code is taken from the nestjs-pino logger implementation
+ * Inspired by nestjs-pino logger
  * @see https://github.com/iamolegga/nestjs-pino/
  */
 import { Logger, LogLevel } from '@common/logger/logger.interface';

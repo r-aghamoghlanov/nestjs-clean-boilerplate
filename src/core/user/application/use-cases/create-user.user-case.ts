@@ -1,7 +1,7 @@
 /* eslint-disable no-useless-catch */
 import type { IUserRepository } from '../repositories/user.repository.interface';
-import type { CreateUserInput } from '../dtos/create-user.dto';
-import type { UserResponse } from '../dtos/user-response-dto';
+import type { CreateUserInput } from '../dtos/in/create-user.dto';
+import type { UserResponse } from '../dtos/out/user-response-dto';
 import type { ICacheService } from '@core/cache/cache.interface';
 import { MessageCodeError } from '@common/errors/message-code.error';
 import { LoggerRegistry } from '@common/logger/logger-registry';

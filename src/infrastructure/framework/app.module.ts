@@ -23,6 +23,7 @@ import { CacheModule } from './modules/cache.module';
       provide: APP_PIPE,
       useClass: ZodValidationPipe,
     },
+    // Register Global exception filter
     {
       provide: APP_FILTER,
       useClass: GlobalExceptionFilter,

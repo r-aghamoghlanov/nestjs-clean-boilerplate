@@ -15,10 +15,12 @@ dotenv.config({ path: '.env' });
 
 type Env = { [k: string]: string | undefined };
 export class ConfigService implements IConfigService {
+  private readonly env: Env = process.env;
   private readonly _name = 'ConfigService';
   private readonly _config: IConfig;
 
-  constructor(private env: Env) {
+  constructor(env: Env) {
+    this.env = env;
     this._config = this.validateConfig(this.buildRawConfig());
     console.debug(`[${this._name}] Config loaded and validated`, this._config);
   }

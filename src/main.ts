@@ -51,7 +51,7 @@ function setupSwagger(app: NestExpressApplication) {
 
 async function bootstrap() {
   // Initialize and register global config
-  const config = ConfigRegistry.initialize(new ConfigService(process.env));
+  const config = ConfigRegistry.initialize(new ConfigService());
 
   // Initialize and register global logger
   const pinoLogger = new PinoLogger(config.appConfig.logLevel);
@@ -86,7 +86,7 @@ async function bootstrap() {
   await app
     .listen(process.env.PORT ?? 3000)
     .then(() => logger.info('Successfully started the server'))
-    .catch((err) => logger.error(err));
+    .catch((err) => logger.error('Error starting the server', err));
 }
 
 void bootstrap();

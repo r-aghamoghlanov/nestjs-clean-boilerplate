@@ -3,7 +3,7 @@ import { Logger } from './logger.interface';
 export class LoggerRegistry {
   private static _baseLogger: Logger;
 
-  static initialize(logger: Logger) {
+  static injectImplementation(logger: Logger) {
     this._baseLogger = logger;
     return this;
   }

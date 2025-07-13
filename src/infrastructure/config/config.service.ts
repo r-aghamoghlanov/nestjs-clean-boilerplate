@@ -2,7 +2,6 @@ import {
   IConfig,
   IConfigService,
   IDatabaseConfig,
-  IAWSConfig,
   IAppConfig,
   ISwaggerConfig,
 } from '@common/config/config.interface';
@@ -29,10 +28,6 @@ export class ConfigService implements IConfigService {
     return this._config.database;
   }
 
-  get awsConfig(): IAWSConfig {
-    return this._config.AWS;
-  }
-
   get appConfig(): IAppConfig {
     return this._config.app;
   }
@@ -56,13 +51,6 @@ export class ConfigService implements IConfigService {
         synchronizeModels: this.getCustomKey('SYNC_MODELS') === 'true',
         enableQueryLogging:
           this.getCustomKey('LOG_GENERATED_QUERIES') === 'true',
-      },
-      AWS: {
-        s3: {
-          accessKeyId: this.getCustomKey('AWS_ACCESS_KEY_ID'),
-          secretAccessKey: this.getCustomKey('AWS_SECRET_ACCESS_KEY'),
-          region: this.getCustomKey('AWS_REGION'),
-        },
       },
       app: {
         port: Number(this.getCustomKey('PORT') ?? 3000),

@@ -7,7 +7,7 @@ import { ConfigService } from '@config/config.service';
  * This file should not me imported by any other file, it's only for config initialization for migrations running
  */
 const createDataSourceForMigration = () => {
-  ConfigRegistry.initialize(new ConfigService());
+  ConfigRegistry.injectImplementation(new ConfigService());
   const datasource = new DataSource(getDataSourceOptions());
   return datasource;
 };

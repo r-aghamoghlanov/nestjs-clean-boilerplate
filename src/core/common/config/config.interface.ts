@@ -10,16 +10,6 @@ export interface IDatabaseConfig {
   enableQueryLogging?: boolean;
 }
 
-export interface IS3Config {
-  accessKeyId: string;
-  secretAccessKey: string;
-  region: string;
-}
-
-export interface IAWSConfig {
-  s3: IS3Config;
-}
-
 export interface IAppConfig {
   port: number;
   logLevel: LogLevel;
@@ -34,7 +24,6 @@ export interface ISwaggerConfig {
 
 export interface IConfig {
   database: IDatabaseConfig;
-  AWS: IAWSConfig;
   app: IAppConfig;
   swagger: ISwaggerConfig;
 }
@@ -42,7 +31,6 @@ export interface IConfig {
 export interface IConfigService {
   getCustomKey(key: string): string | undefined;
   get dbConfig(): IDatabaseConfig;
-  get awsConfig(): IAWSConfig;
   get appConfig(): IAppConfig;
   get swaggerConfig(): ISwaggerConfig;
 }

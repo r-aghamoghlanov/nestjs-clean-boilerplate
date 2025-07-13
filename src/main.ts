@@ -49,13 +49,25 @@ function setupSwagger(app: NestExpressApplication) {
   SwaggerModule.setup('api/docs', app, document);
 }
 
+function setupLogger() {
+  const config = ConfigRegistry.config;
+  const pinoLogger = new PinoLogger(config.appConfig.logLevel);
+  return {
+    loggerRegistry: LoggerRegistry.injectImplementation(pinoLogger),
+    originalLogger: pinoLogger,
+  };
+}
+
+function setupConfigService() {
+  return ConfigRegistry.injectImplementation(new ConfigService());
+}
+
 async function bootstrap() {
   // Initialize and register global config
-  const config = ConfigRegistry.initialize(new ConfigService());
+  const config = setupConfigService();
 
-  // Initialize and register global logger
-  const pinoLogger = new PinoLogger(config.appConfig.logLevel);
-  const logger = LoggerRegistry.initialize(pinoLogger).createLogger('main');
+  const { loggerRegistry, originalLogger } = setupLogger();
+  const logger = loggerRegistry.createLogger('main');
 
   const app = await NestFactory.create<NestExpressApplication>(NestAppModule);
 
@@ -74,7 +86,7 @@ async function bootstrap() {
   if (config.appConfig.enableHttpLogging) {
     app.use(
       pinoHttp({
-        logger: pinoLogger.getPinoInstance(),
+        logger: originalLogger.getPinoInstance(),
       }),
     );
   }

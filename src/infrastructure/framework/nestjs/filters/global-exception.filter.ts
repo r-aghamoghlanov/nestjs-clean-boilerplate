@@ -3,7 +3,6 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
-  Logger,
 } from '@nestjs/common';
 import { MessageCodeError } from '@common/errors/message-code.error';
 import { Request, Response } from 'express';
@@ -46,7 +45,13 @@ export class GlobalExceptionFilter implements ExceptionFilter {
       const request = ctx.getRequest<Request>();
 
       const responsePayload = this.prepareResponsePayload(exception, request);
-      this.logger.info(responsePayload);
+      this.logger.error('Exception occurred', {
+        ...responsePayload,
+        error: {
+          ...responsePayload.error,
+          stack: exception.stack,
+        },
+      });
       return response.status(responsePayload.statusCode).json(responsePayload);
     }
     // TODO: Implement ws, rpc, etc.

@@ -18,7 +18,7 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "typeorm": "npm run build && npx typeorm -d dist/infrastructure/database/typeorm/datasource.js",
+    "typeorm": "npm run build && npx typeorm -d dist/infrastructure/database/typeorm/datasource/datasource.js",
     "db:setup": "dropdb clean-architecture-boilerplate; createdb clean-architecture-boilerplate",
     "db:migration:generate": "npm run typeorm -- migration:generate src/infrastructure/database/typeorm/migrations/$npm_config_name-migration",
     "db:migration:create": "npm run typeorm -- migration:create src/infrastructure/database/typeorm/migrations/$npm_config_name-migration",

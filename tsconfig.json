@@ -21,6 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
+      "@cache/*": ["src/infrastructure/cache/*"],
       "@common/*": ["src/core/common/*"],
       "@config/*": ["src/infrastructure/config/*"],
       "@database/*": ["src/infrastructure/database/*"],

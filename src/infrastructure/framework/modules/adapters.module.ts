@@ -3,7 +3,7 @@ import { CreateUserUseCase } from '@core/user/application/use-cases/create-user.
 import { UserController } from '@core/user/adapters/controllers/user.controller';
 import { NestJSUserController } from '../rest/user.controller';
 import { UseCasesModule } from './use-cases.module';
-import { PROVIDER_TOKENS } from './provider-tokens';
+import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { PROVIDER_TOKENS } from './provider-tokens';
       useFactory: (createUserUseCase: CreateUserUseCase) => {
         return new UserController(createUserUseCase);
       },
-      inject: [PROVIDER_TOKENS.SERVICES.CREATE_USER_USE_CASE],
+      inject: [CUSTOM_PROVIDER_TOKENS.SERVICES.CREATE_USER_USE_CASE],
     },
   ],
   controllers: [

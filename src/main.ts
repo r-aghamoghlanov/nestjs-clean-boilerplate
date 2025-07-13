@@ -1,25 +1,23 @@
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
-import { AppModule as NestAppModule } from './infrastructure/framework/nestjs/app.module';
+import { AppModule as NestAppModule } from './infrastructure/framework/app.module';
 import { VersioningType } from '@nestjs/common';
-import { ROUTES } from './infrastructure/framework/nestjs/rest/routes';
+import { ROUTES } from './infrastructure/framework/rest/routes';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import basicAuth from 'express-basic-auth';
-import { ConfigService } from './infrastructure/config/config.service';
 import { PinoLogger } from './infrastructure/logger/pino.logger';
 import { LoggerRegistry } from '@common/logger/logger-registry';
 import { pinoHttp } from 'pino-http';
-import { ConfigRegistry } from '@common/config/config-registry';
 import { MessageCodeError } from '@common/errors/message-code.error';
+import config from '@config/config.service';
 
 patchNestJsSwagger();
 
 function setupSwagger(app: NestExpressApplication) {
-  const { user: apiDocsUser, password: apiDocsPass } =
-    ConfigRegistry.config.swaggerConfig;
+  const { user: apiDocsUser, password: apiDocsPass } = config.swagger;
 
   if (!apiDocsUser || !apiDocsPass) {
     throw new MessageCodeError('request:forbidden', {
@@ -50,12 +48,9 @@ function setupSwagger(app: NestExpressApplication) {
 }
 
 async function bootstrap() {
-  // Initialize and register global config
-  const config = ConfigRegistry.initialize(new ConfigService(process.env));
-
-  // Initialize and register global logger
-  const pinoLogger = new PinoLogger(config.appConfig.logLevel);
-  const logger = LoggerRegistry.initialize(pinoLogger).createLogger('main');
+  const pinoLogger = new PinoLogger(config.app.logLevel);
+  const logger =
+    LoggerRegistry.injectImplementation(pinoLogger).createLogger('main');
 
   const app = await NestFactory.create<NestExpressApplication>(NestAppModule);
 
@@ -71,7 +66,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useBodyParser('json', { limit: '10mb' });
 
-  if (config.appConfig.enableHttpLogging) {
+  if (config.app.enableHttpLogging) {
     app.use(
       pinoHttp({
         logger: pinoLogger.getPinoInstance(),
@@ -79,14 +74,14 @@ async function bootstrap() {
     );
   }
 
-  if (config.swaggerConfig.enabled) {
+  if (config.swagger.enabled) {
     setupSwagger(app);
   }
 
   await app
     .listen(process.env.PORT ?? 3000)
     .then(() => logger.info('Successfully started the server'))
-    .catch((err) => logger.error(err));
+    .catch((err) => logger.error('Error starting the server', err));
 }
 
 void bootstrap();

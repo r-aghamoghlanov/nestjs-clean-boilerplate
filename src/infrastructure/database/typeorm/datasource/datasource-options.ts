@@ -1,8 +1,8 @@
 import { DataSourceOptions } from 'typeorm';
-import { ConfigRegistry } from '@common/config/config-registry';
+import config from '@config/config.service';
 
 export const getDataSourceOptions = (): DataSourceOptions => {
-  const dbConfig = ConfigRegistry.config.dbConfig;
+  const dbConfig = config.db;
 
   return {
     type: 'postgres',

@@ -1,10 +1,11 @@
 /* eslint-disable no-useless-catch */
-import { IUserRepository } from '../repositories/user.repository.interface';
-import { User } from '../../domain/user.entity';
+import type { IUserRepository } from '../repositories/user.repository.interface';
 import type { CreateUserInput } from '../dtos/create-user.dto';
 import type { UserResponse } from '../dtos/user-response-dto';
+import type { ICacheService } from '@core/cache/cache.interface';
 import { MessageCodeError } from '@common/errors/message-code.error';
 import { LoggerRegistry } from '@common/logger/logger-registry';
+import { User } from '../../domain/user.entity';
 
 export class CreateUserUseCase {
   private readonly logger = LoggerRegistry.createLogger(CreateUserUseCase.name);
@@ -12,6 +13,7 @@ export class CreateUserUseCase {
   // Constructor injection - NestJS will provide these dependencies
   constructor(
     private readonly userRepository: IUserRepository, // Interface, not implementation!
+    private readonly cacheService: ICacheService,
   ) {}
 
   async execute(dto: CreateUserInput): Promise<UserResponse> {
@@ -21,6 +23,12 @@ export class CreateUserUseCase {
       { email: dto.email },
       { username: dto.name },
     );
+
+    const cachedUser = await this.cacheService.get<UserResponse>(dto.email);
+    if (cachedUser) {
+      this.logger.info('User found in cache', { userId: cachedUser.id });
+      return cachedUser;
+    }
 
     try {
       // STEP 2: Business rule validation (using injected repository)
@@ -37,7 +45,14 @@ export class CreateUserUseCase {
       // STEP 4: Persist using repository (using injected repository)
       const savedUser = await this.userRepository.create(user);
 
-      // STEP 5: Transform to response DTO
+      // STEP 5: Cache the user
+      await this.cacheService.set(
+        savedUser.id!.toString(),
+        { email: savedUser.email },
+        60,
+      );
+
+      // STEP 6: Transform to response DTO
       this.logger.info('User created successfully', { userId: savedUser.id });
 
       return {

@@ -1,15 +1,7 @@
-import {
-  IConfig,
-  IDatabaseConfig,
-  IS3Config,
-  IAppConfig,
-  IAWSConfig,
-  ISwaggerConfig,
-} from '@common/config/config.interface';
 import { z } from 'zod';
 
 /** DATABASE SCHEMA */
-const DatabaseConfigSchema = z.object({
+const DatabaseConfig = z.object({
   host: z.string().min(1, 'Database host is required'),
   port: z.number().int().positive('Database port must be a positive integer'),
   username: z.string().min(1, 'Database username is required'),
@@ -17,28 +9,19 @@ const DatabaseConfigSchema = z.object({
   database: z.string().min(1, 'Database name is required'),
   synchronizeModels: z.boolean().optional(),
   enableQueryLogging: z.boolean().optional(),
-}) satisfies z.ZodType<IDatabaseConfig>;
-
-/** AWS SCHEMA */
-const S3ConfigSchema = z.object({
-  accessKeyId: z.string().min(1, 'AWS access key ID is required'),
-  secretAccessKey: z.string().min(1, 'AWS secret access key is required'),
-  region: z.string().min(1, 'AWS region is required'),
-}) satisfies z.ZodType<IS3Config>;
-
-const AWSConfigSchema = z.object({
-  s3: S3ConfigSchema,
-}) satisfies z.ZodType<IAWSConfig>;
+});
+export type DatabaseConfig = z.infer<typeof DatabaseConfig>;
 
 /** APP SCHEMA */
-const AppConfigSchema = z.object({
+const AppConfig = z.object({
   port: z.number().int().positive('App port must be a positive integer'),
   logLevel: z.enum(['info', 'error', 'fatal', 'warn', 'debug', 'trace']),
   enableHttpLogging: z.boolean().optional(),
-}) satisfies z.ZodType<IAppConfig>;
+});
+export type AppConfig = z.infer<typeof AppConfig>;
 
 /** SWAGGER SCHEMA */
-const SwaggerConfigSchema = z
+const SwaggerConfig = z
   .object({
     enabled: z.boolean(),
     user: z.string().optional(),
@@ -60,13 +43,22 @@ const SwaggerConfigSchema = z
       message: 'Swagger user and password are required when enabled is true',
       path: ['user', 'password'],
     },
-  ) satisfies z.ZodType<ISwaggerConfig>;
+  );
+export type SwaggerConfig = z.infer<typeof SwaggerConfig>;
 
-const ConfigSchema = z.object({
-  database: DatabaseConfigSchema,
-  AWS: AWSConfigSchema,
-  app: AppConfigSchema,
-  swagger: SwaggerConfigSchema,
-}) satisfies z.ZodType<IConfig>;
+/** BASE CACHE SCHEMA */
+const BaseCacheConfig = z.object({
+  defaultTtl: z.number().int().positive().optional(),
+  keyPrefix: z.string().optional(),
+});
+export type BaseCacheConfig = z.infer<typeof BaseCacheConfig>;
 
-export { ConfigSchema, DatabaseConfigSchema, S3ConfigSchema };
+const Config = z.object({
+  database: DatabaseConfig,
+  app: AppConfig,
+  swagger: SwaggerConfig,
+  baseCache: BaseCacheConfig,
+});
+export type Config = z.infer<typeof Config>;
+
+export { Config, DatabaseConfig, AppConfig, SwaggerConfig, BaseCacheConfig };

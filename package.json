@@ -2,7 +2,7 @@
   "name": "clean-architecture-boilerplate",
   "version": "0.0.1",
   "description": "Clean Architecture with NestJS as a main framework",
-  "author": "Rustam Aghamoghlanovv",
+  "author": "Rustam Aghamoghlanov",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {

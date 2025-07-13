@@ -17,13 +17,13 @@ export class InMemoryCacheService implements ICacheService {
     this.startCleanupInterval();
   }
 
-  async set<T>(key: string, value: T, ttl?: number): Promise<void> {
+  async set<T>(key: string, value: T, expireInSeconds?: number): Promise<void> {
     const prefixedKey = this.getPrefixedKey(key);
-    const finalTtl = ttl ?? this.config.defaultTtl;
+    const itemTTL = expireInSeconds ?? this.config.defaultTTL;
 
     const entry: CacheEntry<T> = {
       value,
-      ttl: finalTtl,
+      ttl: itemTTL,
       createdAt: Date.now(),
     };
 

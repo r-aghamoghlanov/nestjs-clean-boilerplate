@@ -1,7 +1,7 @@
 import z from 'zod';
 import { BaseCacheConfig } from '@config/config.validator';
 
-const RedisConfig = z.object({
+export const RedisConfig = z.object({
   ...BaseCacheConfig.shape,
   host: z.string().min(1),
   port: z.number().int().positive(),

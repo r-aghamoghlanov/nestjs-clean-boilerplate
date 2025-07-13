@@ -13,12 +13,11 @@ import { Logger } from './logger.interface';
  *
  * export class ExampleService {
  *  private readonly logger = LoggerRegistry.createLogger(ExampleService.name);
- *  constructor() {}
+ *    constructor() {}
  *
- *   @Injectable()
- *   doSomething() {
- *     this.logger.info('Doing something');
- *   }
+ *    doSomething() {
+ *      this.logger.info('Doing something');
+ *    }
  * }
  * ```
  */

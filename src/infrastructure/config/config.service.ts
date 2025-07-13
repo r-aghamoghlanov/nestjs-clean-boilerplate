@@ -12,7 +12,7 @@ import { LogLevel } from '@common/logger/logger.interface';
 dotenvConfig({ path: '.env' });
 
 export interface IConfigService {
-  getCustomKey(key: string): string | undefined;
+  find(key: string): string | undefined;
   get db(): DatabaseConfig;
   get app(): AppConfig;
   get swagger(): SwaggerConfig;
@@ -22,13 +22,15 @@ export interface IConfigService {
 type Env = { [k: string]: string | undefined };
 class ConfigService implements IConfigService {
   private readonly _env: Env;
-  private readonly _name = 'ConfigService';
   private readonly _config: Config;
 
   constructor(env?: Env) {
     this._env = env ?? process.env;
     this._config = this.validateConfig(this.buildRawConfig());
-    console.debug(`[${this._name}] Config loaded and validated`, this._config);
+    console.debug(
+      `[${ConfigService.name}] Config loaded and validated`,
+      this._config,
+    );
   }
 
   get db(): DatabaseConfig {
@@ -47,35 +49,34 @@ class ConfigService implements IConfigService {
     return this._config.baseCache;
   }
 
-  public getCustomKey(key: string): string | undefined {
+  public find(key: string): string | undefined {
     return this._env[key];
   }
 
   private buildRawConfig(): DeepPartial<Config> {
     const configObj: DeepPartial<Config> = {
       database: {
-        host: this.getCustomKey('DATABASE_HOST'),
-        port: Number(this.getCustomKey('DATABASE_PORT') ?? 5432),
-        username: this.getCustomKey('DATABASE_USERNAME'),
-        password: this.getCustomKey('DATABASE_PASSWORD'),
-        database: this.getCustomKey('DATABASE_NAME'),
-        synchronizeModels: this.getCustomKey('SYNC_MODELS') === 'true',
-        enableQueryLogging:
-          this.getCustomKey('LOG_GENERATED_QUERIES') === 'true',
+        host: this.find('DATABASE_HOST'),
+        port: Number(this.find('DATABASE_PORT') ?? 5432),
+        username: this.find('DATABASE_USERNAME'),
+        password: this.find('DATABASE_PASSWORD'),
+        database: this.find('DATABASE_NAME'),
+        synchronizeModels: this.find('SYNC_MODELS') === 'true',
+        enableQueryLogging: this.find('LOG_GENERATED_QUERIES') === 'true',
       },
       app: {
-        port: Number(this.getCustomKey('PORT') ?? 3000),
-        logLevel: this.getCustomKey('LOG_LEVEL') as LogLevel,
-        enableHttpLogging: this.getCustomKey('ENABLE_HTTP_LOGGING') === 'true',
+        port: Number(this.find('PORT') ?? 3000),
+        logLevel: this.find('LOG_LEVEL') as LogLevel,
+        enableHttpLogging: this.find('ENABLE_HTTP_LOGGING') === 'true',
       },
       baseCache: {
-        defaultTtl: Number(this.getCustomKey('CACHE_DEFAULT_TTL') ?? 3600),
-        keyPrefix: this.getCustomKey('CACHE_KEY_PREFIX'),
+        defaultTTL: Number(this.find('CACHE_DEFAULT_TTL_IN_SECONDS') ?? 3600),
+        keyPrefix: this.find('CACHE_KEY_PREFIX'),
       },
       swagger: {
-        enabled: this.getCustomKey('ENABLE_SWAGGER_UI') === 'true',
-        user: this.getCustomKey('API_DOCS_USER'),
-        password: this.getCustomKey('API_DOCS_PASS'),
+        enabled: this.find('ENABLE_SWAGGER_UI') === 'true',
+        user: this.find('API_DOCS_USER'),
+        password: this.find('API_DOCS_PASS'),
       },
     };
 

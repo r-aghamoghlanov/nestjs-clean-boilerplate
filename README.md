@@ -60,6 +60,7 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
   - [ ] Nodemailer integration
 - [ ] Agnostic Cache Module
   - [ ] Redis Cache Integration
+  - [x] Basic In-Memory Cache as an Example
 - [x] Agnostic Unified Logging
   - [x] Pino Logger integration
 - [x] Unified Error Handling

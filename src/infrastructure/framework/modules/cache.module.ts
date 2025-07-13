@@ -8,13 +8,13 @@ import config from '@config/config.service';
   providers: [
     {
       useFactory: () => {
-        const inMemoryConfig: InMemoryCacheConfig = {
+        const inMemoryConfig = InMemoryCacheConfig.parse({
           ...config.baseCache,
-          maxSize: Number(config.getCustomKey('MEMORY_CACHE_MAX_SIZE')),
+          maxSize: Number(config.find('MEMORY_CACHE_MAX_NUMBER_OF_ELEMENTS')),
           checkInterval: Number(
-            config.getCustomKey('MEMORY_CACHE_CHECK_INTERVAL') ?? 60000,
+            config.find('MEMORY_CACHE_CHECK_INTERVAL_IN_MILLISECONDS') ?? 60000,
           ),
-        };
+        });
 
         return new InMemoryCacheService(inMemoryConfig);
       },

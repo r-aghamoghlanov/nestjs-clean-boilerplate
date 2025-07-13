@@ -48,7 +48,7 @@ export type SwaggerConfig = z.infer<typeof SwaggerConfig>;
 
 /** BASE CACHE SCHEMA */
 const BaseCacheConfig = z.object({
-  defaultTtl: z.number().int().positive().optional(),
+  defaultTTL: z.number().int().positive().optional(),
   keyPrefix: z.string().optional(),
 });
 export type BaseCacheConfig = z.infer<typeof BaseCacheConfig>;

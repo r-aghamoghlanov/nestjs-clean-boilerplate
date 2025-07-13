@@ -24,12 +24,12 @@ export class MessageCodeError extends Error {
     errorBody?: string,
   ) {
     super();
+    // Static method installs stack trace information on a provided object as the `stack` property.
+    // This will also hide internal information about the `MessageCodeError` class in the logs.
+    Error.captureStackTrace(this, this.constructor);
 
     const errorMessageConfig = this.getErrorMessageConfig(messageCode);
 
-    // Static method installs stack trace information on a provided object as the `stack` property.
-    Error.captureStackTrace(this, this.constructor);
-    this.name = this.constructor.name;
     this.statusCode = errorMessageConfig.statusCode;
     this.statusText = errorMessageConfig.statusText;
     this.messageCode = messageCode;

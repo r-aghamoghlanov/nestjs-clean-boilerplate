@@ -63,7 +63,6 @@ export class PinoLogger extends Logger {
   private call(level: LogLevel, message: string, ...optionalParams: any[]) {
     type LogObject = Record<string, unknown>;
 
-    // If message is an object, merge it with other params
     const mergedParams = optionalParams.reduce<LogObject>((acc, param) => {
       if (param && typeof param === 'object') {
         return { ...acc, ...(param as LogObject) };
@@ -71,7 +70,6 @@ export class PinoLogger extends Logger {
       return acc;
     }, {});
 
-    // If message is a string, use it as msg property, otherwise merge it with params
     const logObject: LogObject = {
       msg: this.context ? `[${this.context}] ${message}` : message,
       ...mergedParams,

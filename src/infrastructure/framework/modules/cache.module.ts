@@ -1,22 +1,24 @@
 import { Module } from '@nestjs/common';
 import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';
-import { InMemoryCacheService } from '@cache/in-memory-cache.service';
-import { InMemoryCacheConfig } from '@cache/configs/in-memory.config';
+import { RedisCacheService } from '@cache/redis-cache.service';
+import { RedisConfig } from '@cache/configs/redis.config';
 import config from '@config/config.service';
 
 @Module({
   providers: [
     {
       useFactory: () => {
-        const inMemoryConfig = InMemoryCacheConfig.parse({
+        const redisConfig = RedisConfig.parse({
           ...config.baseCache,
-          maxSize: Number(config.find('MEMORY_CACHE_MAX_NUMBER_OF_ELEMENTS')),
-          checkInterval: Number(
-            config.find('MEMORY_CACHE_CHECK_INTERVAL_IN_MILLISECONDS') ?? 60000,
-          ),
+          host: config.find('REDIS_HOST') ?? 'localhost',
+          port: Number(config.find('REDIS_PORT') ?? 6379),
+          password: config.find('REDIS_PASSWORD'),
+          db: Number(config.find('REDIS_DB') ?? 0),
+          connectTimeout: Number(config.find('REDIS_CONNECT_TIMEOUT') ?? 5000),
+          retryDelayOnFailover: Number(config.find('REDIS_RETRY_DELAY') ?? 100),
         });
 
-        return new InMemoryCacheService(inMemoryConfig);
+        return new RedisCacheService(redisConfig);
       },
       provide: CUSTOM_PROVIDER_TOKENS.CACHE_SERVICE,
     },

@@ -44,11 +44,7 @@ export class CreateUserUseCase {
     const savedUser = await this.userRepository.create(user);
 
     // STEP 5: Cache the user
-    await this.cacheService.set(
-      savedUser.id!.toString(),
-      { email: savedUser.email },
-      60,
-    );
+    await this.cacheService.set(savedUser.email, { id: savedUser.id }, 5000);
 
     // STEP 6: Transform to response DTO
     this.logger.info('User created successfully', { userId: savedUser.id });

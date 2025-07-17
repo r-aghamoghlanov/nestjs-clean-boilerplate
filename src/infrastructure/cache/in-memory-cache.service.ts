@@ -32,7 +32,7 @@ export class InMemoryCacheService implements ICacheService {
     this.stats.size = this.cache.size;
 
     // Check if we need to evict items due to maxSize
-    if (this.config?.maxSize && this.cache.size > this.config.maxSize) {
+    if (this.cache.size > this.config.maxSize) {
       this.evictOldestItems();
     }
 
@@ -156,7 +156,7 @@ export class InMemoryCacheService implements ICacheService {
   }
 
   private getPrefixedKey(key: string): string {
-    return this.config?.keyPrefix ? `${this.config.keyPrefix}:${key}` : key;
+    return `${this.config.keyPrefix}:${key}`;
   }
 
   private removePrefix(key: string): string {
@@ -178,7 +178,7 @@ export class InMemoryCacheService implements ICacheService {
   }
 
   private evictOldestItems(): void {
-    const maxSize = this.config?.maxSize ?? 1000;
+    const maxSize = this.config.maxSize;
     const itemsToEvict = this.cache.size - maxSize;
 
     if (itemsToEvict > 0) {
@@ -195,7 +195,7 @@ export class InMemoryCacheService implements ICacheService {
   }
 
   private startCleanupInterval(): void {
-    const interval = this.config?.checkInterval ?? 60000; // 1 minute
+    const interval = this.config.checkInterval;
 
     this.cleanupInterval = setInterval(() => {
       this.cleanupExpiredEntries();
@@ -211,11 +211,5 @@ export class InMemoryCacheService implements ICacheService {
     }
 
     this.stats.size = this.cache.size;
-  }
-
-  onModuleDestroy(): void {
-    if (this.cleanupInterval) {
-      clearInterval(this.cleanupInterval);
-    }
   }
 }

@@ -1,8 +1,12 @@
 import { ICacheService } from '@core/cache/cache.interface';
 import { CacheEntry, CacheStats } from '@core/cache/cache.types';
 import { InMemoryCacheConfig } from '@cache/configs/in-memory.config';
+import { LoggerRegistry } from '@common/logger/logger-registry';
 
 export class InMemoryCacheService implements ICacheService {
+  private readonly logger = LoggerRegistry.createLogger(
+    InMemoryCacheService.name,
+  );
   private cache = new Map<string, CacheEntry>();
   private stats: CacheStats = {
     hits: 0,
@@ -15,6 +19,7 @@ export class InMemoryCacheService implements ICacheService {
 
   constructor(private readonly config: InMemoryCacheConfig) {
     this.startCleanupInterval();
+    this.logger.info('In-memory cache initialized');
   }
 
   async set<T>(key: string, value: T, expireInSeconds?: number): Promise<void> {

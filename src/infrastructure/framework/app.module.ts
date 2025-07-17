@@ -7,7 +7,7 @@ import { HealthCheckController } from './healthcheck.controller';
 import { ZodValidationPipe } from 'nestjs-zod';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 import { GlobalExceptionFilter } from './filters/global-exception.filter';
-import { CacheModule } from './modules/cache.module';
+import { CacheModule } from './modules/cache-manager.module';
 
 @Module({
   imports: [

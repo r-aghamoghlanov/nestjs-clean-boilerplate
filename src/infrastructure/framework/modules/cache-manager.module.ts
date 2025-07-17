@@ -1,7 +1,10 @@
 import { Module } from '@nestjs/common';
 import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';
 import { RedisCacheService } from '@cache/redis-cache.service';
+import { InMemoryCacheService } from '@cache/in-memory-cache.service';
+import { CacheManagerService } from '@cache/cache-manager.service';
 import { RedisConfig } from '@cache/configs/redis.config';
+import { InMemoryCacheConfig } from '@cache/configs/in-memory.config';
 import config from '@config/config.service';
 
 @Module({
@@ -18,11 +21,22 @@ import config from '@config/config.service';
           retryDelayOnFailover: Number(config.find('REDIS_RETRY_DELAY') ?? 100),
         });
 
-        return new RedisCacheService(redisConfig);
+        const inMemoryConfig = InMemoryCacheConfig.parse({
+          ...config.baseCache,
+          maxSize: Number(config.find('IN_MEMORY_CACHE_MAX_SIZE') ?? 1000),
+          checkInterval: Number(
+            config.find('IN_MEMORY_CACHE_CHECK_INTERVAL') ?? 60000,
+          ),
+        });
+
+        const redisCache = new RedisCacheService(redisConfig);
+        const inMemoryCache = new InMemoryCacheService(inMemoryConfig);
+
+        return new CacheManagerService(redisCache, inMemoryCache);
       },
-      provide: CUSTOM_PROVIDER_TOKENS.CACHE_SERVICE,
+      provide: CUSTOM_PROVIDER_TOKENS.CACHE_MANAGER,
     },
   ],
-  exports: [CUSTOM_PROVIDER_TOKENS.CACHE_SERVICE],
+  exports: [CUSTOM_PROVIDER_TOKENS.CACHE_MANAGER],
 })
 export class CacheModule {}

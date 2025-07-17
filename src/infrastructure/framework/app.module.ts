@@ -14,8 +14,8 @@ import { CacheModule } from './modules/cache.module';
     DatabaseModule,
     CacheModule,
     RepositoryModule,
-    UseCasesModule,
     AdaptersModule,
+    UseCasesModule,
   ],
   providers: [
     // Register Global validation pipe

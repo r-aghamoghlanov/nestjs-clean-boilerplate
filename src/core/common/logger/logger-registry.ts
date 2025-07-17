@@ -5,7 +5,7 @@ import { Logger } from './logger.interface';
  * By following this pattern, we can reuse this class and create new instances of loggers in any part
  * of domain & application layer without
  * - having to worry about the implementation details
- * - explicit injection in constructor
+ * - explicit injection in constructor that can be annoying
  *
  * @example
  * ```ts

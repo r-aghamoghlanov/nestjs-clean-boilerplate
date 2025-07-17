@@ -67,3 +67,4 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
   - [x] Custom Exception Filters
 - [x] Env Configuration
 - [x] Zod validation + OpenAPI (Swagger) integration
+- [ ] File Upload & File Download

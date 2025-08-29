@@ -9,7 +9,7 @@ import { DeepPartial } from '@common/custom.type';
 import { config as dotenvConfig } from 'dotenv';
 import { LogLevel } from '@common/logger/logger.interface';
 
-dotenvConfig({ path: '.env' });
+dotenvConfig({ path: '../../.env' });
 
 export interface IConfigService {
   find(key: string): string | undefined;

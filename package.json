@@ -6,17 +6,17 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "build": "pnpm --filter api build",
-    "start": "pnpm --filter api start",
-    "start:dev": "pnpm --filter api start:dev",
-    "start:debug": "pnpm --filter api start:debug",
-    "start:prod": "pnpm --filter api start:prod",
-    "lint": "pnpm --filter api lint",
-    "test": "pnpm --filter api test",
-    "test:watch": "pnpm --filter api test:watch",
-    "test:cov": "pnpm --filter api test:cov",
-    "test:debug": "pnpm --filter api test:debug",
-    "test:e2e": "pnpm --filter api test:e2e"
+    "build:api": "pnpm --filter api run build",
+    "start:api": "pnpm --filter api run start",
+    "start:api:dev": "pnpm --filter api run start:dev",
+    "start:api:debug": "pnpm --filter api run start:debug",
+    "start:api:prod": "pnpm --filter api run start:prod",
+    "test:api": "pnpm --filter api run test",
+    "test:api:watch": "pnpm --filter api run test:watch",
+    "test:api:cov": "pnpm --filter api run test:cov",
+    "test:api:debug": "pnpm --filter api run test:debug",
+    "test:api:e2e": "pnpm --filter api run test:e2e",
+    "lint:api": "pnpm --filter api lint"
   },
   "dependencies": {
     "@nestjs/common": "^11.0.1",

@@ -12,6 +12,9 @@ export class NestJSUserController {
 
   @Post()
   async createUser(@Body() dto: CreateUserDto): Promise<UserResponse> {
-    return await this.userController.createUser(dto);
+    return await this.userController.createUser({
+      email: dto.email,
+      name: dto.name,
+    });
   }
 }

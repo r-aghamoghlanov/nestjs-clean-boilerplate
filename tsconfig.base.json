@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "rootDir": ".",
     "moduleResolution": "node",
     "declaration": true,
     "removeComments": true,
@@ -11,7 +10,7 @@
     "target": "ES2023",
     "esModuleInterop": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./",
     "incremental": true,
     "skipLibCheck": true,
     "strictNullChecks": true,

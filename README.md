@@ -51,6 +51,7 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
 
 - [x] Clear separation between Business & Domain Layers / Infrastructure Layer
 - [x] Agnostic Database Layer
+  - [] Transactional Wrapper
   - [x] TypeORM integration
     - [x] TypeORM Main Configuration
     - [x] Typeorm Migration Configuration

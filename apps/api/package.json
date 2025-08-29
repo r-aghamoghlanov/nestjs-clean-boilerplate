@@ -1,0 +1,47 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "build": "nest build",
+        "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+        "start": "nest start",
+        "start:dev": "nest start --watch",
+        "start:debug": "nest start --debug --watch",
+        "start:prod": "node dist/main",
+        "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+        "test:e2e": "jest --config ./test/jest-e2e.json",
+        "typeorm": "npm run build && npx typeorm -d dist/infrastructure/database/typeorm/datasource/datasource.js",
+        "db:setup": "dropdb clean-architecture-boilerplate; createdb clean-architecture-boilerplate",
+        "db:migration:generate": "npm run typeorm -- migration:generate src/infrastructure/database/typeorm/migrations/$npm_config_name-migration",
+        "db:migration:create": "npm run typeorm -- migration:create src/infrastructure/database/typeorm/migrations/$npm_config_name-migration",
+        "db:migration:revert": "npm run typeorm -- migration:revert",
+        "db:migration:run": "npm run typeorm -- migration:run"
+    },
+    "scriptDescriptions": {
+        "build": "Build the project",
+        "format": "Format the code with prettier",
+        "start": "Start the project in production mode",
+        "start:dev": "Start the project in development mode",
+        "start:debug": "Start the project in debug mode",
+        "lint": "Lint the code with eslint",
+        "test": "Run tests",
+        "test:watch": "Run tests in watch mode",
+        "test:cov": "Run tests with coverage",
+        "test:debug": "Run tests in debug mode",
+        "test:e2e": "Run end-to-end tests",
+        "db:setup": "Drops and creates development database",
+        "db:migration:generate": "Generate a new migration based on the state of the models (e.g. npm run db:migration:generate --name=user)",
+        "db:migration:create": "Create a new empty migration (e.g. npm run db:migration:create --name=user)",
+        "db:migration:revert": "Revert the last migration",
+        "db:migration:run": "Run all pending migrations"
+      },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+  }
+  

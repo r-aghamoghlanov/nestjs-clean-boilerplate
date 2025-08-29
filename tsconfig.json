@@ -1,32 +1,3 @@
 {
-  "compilerOptions": {
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true,
-    "target": "ES2023",
-    "esModuleInterop": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true,
-    "skipLibCheck": true,
-    "strictNullChecks": true,
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitAny": true,
-    "strictBindCallApply": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "paths": {
-      "@cache/*": ["apps/api/src/infrastructure/cache/*"],
-      "@common/*": ["apps/api/src/core/common/*"],
-      "@config/*": ["apps/api/src/infrastructure/config/*"],
-      "@database/*": ["apps/api/src/infrastructure/database/*"],
-      "@framework/*": ["src/infrastructure/framework/*"],
-      "@core/*": ["apps/api/src/core/*"]
-    }
-  }
+  "extends": "./tsconfig.base.json"
 }

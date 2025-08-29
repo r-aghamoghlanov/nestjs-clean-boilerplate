@@ -21,12 +21,12 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "paths": {
-      "@cache/*": ["src/infrastructure/cache/*"],
-      "@common/*": ["src/core/common/*"],
-      "@config/*": ["src/infrastructure/config/*"],
-      "@database/*": ["src/infrastructure/database/*"],
+      "@cache/*": ["apps/api/src/infrastructure/cache/*"],
+      "@common/*": ["apps/api/src/core/common/*"],
+      "@config/*": ["apps/api/src/infrastructure/config/*"],
+      "@database/*": ["apps/api/src/infrastructure/database/*"],
       "@framework/*": ["src/infrastructure/framework/*"],
-      "@core/*": ["src/core/*"]
+      "@core/*": ["apps/api/src/core/*"]
     }
   }
 }

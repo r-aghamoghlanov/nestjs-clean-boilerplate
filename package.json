@@ -17,7 +17,11 @@
     "test:api:debug": "pnpm --filter api test:debug",
     "test:api:e2e": "pnpm --filter api test:e2e",
     "lint:api": "pnpm --filter api lint",
-    "start:ui": "pnpm --filter ui dev"
+    "start:ui:dev": "pnpm --filter ui start:dev",
+    "dev": "pnpm run --parallel --filter \"./apps/**\" start:dev",
+    "build": "pnpm run --recursive --filter \"./apps/**\" build",
+    "test": "pnpm run --recursive --filter \"./apps/**\" start:test",
+    "lint": "pnpm run --recursive --filter \"./apps/**\" start:lint"
   },
   "jest": {
     "moduleFileExtensions": [

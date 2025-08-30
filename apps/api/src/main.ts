@@ -13,6 +13,7 @@ import { LoggerRegistry } from '@common/logger/logger-registry';
 import { pinoHttp } from 'pino-http';
 import { MessageCodeError } from '@common/errors/message-code.error';
 import config from '@config/config.service';
+import { TestHello } from "test-library"
 
 patchNestJsSwagger();
 
@@ -51,6 +52,8 @@ async function bootstrap() {
   const pinoLogger = new PinoLogger(config.app.logLevel);
   const logger =
     LoggerRegistry.injectImplementation(pinoLogger).createLogger('main');
+
+  TestHello("HELLO MERAB!")
 
   const app = await NestFactory.create<NestExpressApplication>(NestAppModule);
 

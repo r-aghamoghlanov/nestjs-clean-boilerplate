@@ -30,7 +30,7 @@ export default tseslint.config(
         project: 'tsconfig.json',
         sourceType: 'module',
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
+        // tsconfigRootDir: "/",
       },
     },
   },

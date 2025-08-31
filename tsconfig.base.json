@@ -21,12 +21,12 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "@api/*": ["apps/api/src/*"],
-      "@cache/*": ["apps/api/src/infrastructure/cache/*"],
-      "@common/*": ["apps/api/src/core/common/*"],
-      "@config/*": ["apps/api/src/infrastructure/config/*"],
-      "@database/*": ["apps/api/src/infrastructure/database/*"],
-      "@framework/*": ["src/infrastructure/framework/*"],
-      "@core/*": ["apps/api/src/core/*"]
+      // "@cache/*": ["apps/api/src/infrastructure/cache/*"],
+      "@common/*": ["libraries/core/src/common/*"],
+      // "@config/*": ["apps/api/src/infrastructure/config/*"],
+      "@database/*": ["libraries/infrastructure/src/database/*"],
+      "@framework/*": ["apps/api/src/infrastructure/framework/*"],
+      "@core/*": ["libraries/core/src/*"]
     }
   }
 }

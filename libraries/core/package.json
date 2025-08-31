@@ -1,7 +1,7 @@
 {
   "name": "@core",
   "version": "1.0.0",
-  "description": "Core domain entities and business logic",
+  "description": "Core layer for the application",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,10 +13,13 @@
     "clean": "rm -rf dist"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rustam Aghamoghlanov",
   "license": "ISC",
   "packageManager": "pnpm@10.15.0",
   "publishConfig": {
     "access": "restricted"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2"
   }
 }

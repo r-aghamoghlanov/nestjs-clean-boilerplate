@@ -1,17 +1,26 @@
 {
-  "name": "infrastructure",
+  "name": "@infrastructure",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Infrastructure layer for the application",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "build:watch": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rm -rf dist"
   },
   "keywords": [],
-  "author": "",
+  "author": "Rustam Aghamoghlanov",
   "license": "ISC",
   "packageManager": "pnpm@10.15.0",
   "dependencies": {
     "pino": "^9.9.0",
     "typeorm": "^0.3.26"
+  },
+  "devDependencies": {
+    "typescript": "~5.9.2"
   }
 }

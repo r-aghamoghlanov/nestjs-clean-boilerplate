@@ -1,12 +1,12 @@
 import type { IUserRepository } from '../repositories/user.repository.interface';
 import type { CreateUserInput } from '../dtos/in/create-user.dto';
 import type { UserResponse } from '../dtos/out/user-response-dto';
-import type { ICacheManager } from '@api/core/cache/cache-manager.interface';
-import { CacheType } from '@api/core/cache/cache-manager.interface';
-import { MessageCodeError } from '@api/core/common/errors/message-code.error';
-import { LoggerRegistry } from '@api/core/common/logger/logger-registry';
+import type { ICacheManager } from '../../../cache/cache-manager.interface';
+import { CacheType } from '../../../cache/cache-manager.interface';
+import { MessageCodeError } from '../../../common/errors/message-code.error';
+import { LoggerRegistry } from '../../../common/logger/logger-registry';
 import { User } from '../../domain/user.entity';
-import { ICacheService } from '@api/core/cache/cache.interface';
+import { ICacheService } from '../../../cache/cache.interface';
 
 export class CreateUserUseCase {
   private readonly logger = LoggerRegistry.createLogger(CreateUserUseCase.name);

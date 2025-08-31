@@ -1,4 +1,4 @@
-import { BaseEntity } from '@api/core/common/base.entity';
+import { BaseEntity } from '../../common/base.entity';
 
 export class User extends BaseEntity {
   constructor(

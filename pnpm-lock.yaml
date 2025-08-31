@@ -206,7 +206,11 @@ importers:
         specifier: ^7.1.2
         version: 7.1.3(@types/node@22.18.0)(terser@5.43.1)
 
-  libraries/core: {}
+  libraries/core:
+    devDependencies:
+      '@types/node':
+        specifier: ^22.18.0
+        version: 22.18.0
 
   libraries/infrastructure:
     dependencies:

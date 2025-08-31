@@ -16,6 +16,9 @@
   "author": "Rustam Aghamoghlanov",
   "license": "ISC",
   "packageManager": "pnpm@10.15.0",
+  "publishConfig": {
+    "access": "restricted"
+  },
   "dependencies": {
     "pino": "^9.9.0",
     "typeorm": "^0.3.26"

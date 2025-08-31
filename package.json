@@ -1,7 +1,7 @@
 {
-  "name": "clean-architecture-boilerplate",
-  "version": "0.0.1",
-  "description": "Clean Architecture with NestJS as a main framework",
+  "name": "clean-architecture-monorepo-boilerplate",
+  "version": "1.0.0",
+  "description": "Clean Architecture Monorepo Boilerplate",
   "author": "Rustam Aghamoghlanov",
   "private": true,
   "license": "UNLICENSED",
@@ -27,11 +27,12 @@
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
     "eslint": "^9.18.0",
+    "eslint-config-prettier": "^10.0.1",
+    "eslint-plugin-prettier": "^5.2.2",
     "globals": "^16.0.0",
     "prettier": "^3.4.2",
     "typescript-eslint": "^8.20.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.2"
+    "typescript": "5.9.2"
   },
   "jest": {
     "moduleFileExtensions": [

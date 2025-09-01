@@ -56,6 +56,15 @@ importers:
       '@nestjs/typeorm':
         specifier: ^11.0.0
         version: 11.0.0(@nestjs/common@11.1.6(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(reflect-metadata@0.2.2)(rxjs@7.8.2)(typeorm@0.3.26(pg@8.16.3)(redis@4.7.1)(reflect-metadata@0.2.2)(ts-node@10.9.2(@swc/core@1.13.5)(@types/node@22.18.0)(typescript@5.9.2))(typescript@5.9.2))
+      '@package/core':
+        specifier: workspace:*
+        version: link:../../libraries/core
+      '@package/infrastructure':
+        specifier: workspace:*
+        version: link:../../libraries/infrastructure
+      '@package/test':
+        specifier: workspace:*
+        version: link:../../libraries/test
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -95,9 +104,6 @@ importers:
       rxjs:
         specifier: ^7.8.1
         version: 7.8.2
-      test-library:
-        specifier: workspace:*
-        version: link:../../libraries/test-library
       zod:
         specifier: ^3.25.76
         version: 3.25.76
@@ -228,7 +234,7 @@ importers:
         specifier: ~5.9.2
         version: 5.9.2
 
-  libraries/test-library:
+  libraries/test:
     dependencies:
       typescript:
         specifier: ~5.9.2

@@ -1,5 +1,5 @@
 {
-  "name": "@core",
+  "name": "@package/core",
   "version": "1.0.0",
   "description": "Core layer for the application",
   "main": "dist/index.js",

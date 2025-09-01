@@ -21,8 +21,8 @@
     "noUncheckedIndexedAccess": true,
     "paths": {
       "@api/*": ["apps/api/src/*"],
-      // "@cache/*": ["apps/api/src/infrastructure/cache/*"],
-      // "@config/*": ["apps/api/src/infrastructure/config/*"],
+      "@cache/*": ["libraries/infrastructure/src/cache/*"],
+      "@config/*": ["libraries/infrastructure/src/config/*"],
       "@framework/*": ["apps/api/src/infrastructure/framework/*"],
       "@database/*": ["libraries/infrastructure/src/database/*"],
       "@common/*": ["libraries/core/src/common/*"],

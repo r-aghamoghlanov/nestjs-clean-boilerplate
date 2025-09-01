@@ -1,9 +1,7 @@
-import { Injectable } from '@nestjs/common';
 import { CacheType, ICacheManager } from '@core/cache/cache-manager.interface';
 import { ICacheService } from '@core/cache/cache.interface';
 import { LoggerRegistry } from '@common/logger/logger-registry';
 
-@Injectable()
 export class CacheManagerService implements ICacheManager {
   private readonly logger = LoggerRegistry.createLogger(
     CacheManagerService.name,

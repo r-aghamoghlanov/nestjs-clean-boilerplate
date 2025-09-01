@@ -22,10 +22,10 @@
     "paths": {
       "@api/*": ["apps/api/src/*"],
       // "@cache/*": ["apps/api/src/infrastructure/cache/*"],
-      "@common/*": ["libraries/core/src/common/*"],
       // "@config/*": ["apps/api/src/infrastructure/config/*"],
-      "@database/*": ["libraries/infrastructure/src/database/*"],
       "@framework/*": ["apps/api/src/infrastructure/framework/*"],
+      "@database/*": ["libraries/infrastructure/src/database/*"],
+      "@common/*": ["libraries/core/src/common/*"],
       "@core/*": ["libraries/core/src/*"]
     }
   }

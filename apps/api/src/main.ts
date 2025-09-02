@@ -8,11 +8,11 @@ import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import basicAuth from 'express-basic-auth';
-// import { PinoLogger } from '@infrastructure';
-// import { LoggerRegistry } from '@common/logger/logger-registry';
-// import { pinoHttp } from 'pino-http';
-import { MessageCodeError } from '@common/errors/message-code.error';
-import config from '@config/config.service';
+import { PinoLogger } from '@package/infrastructure/logger/pino.logger';
+import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
+import { pinoHttp } from 'pino-http';
+import { MessageCodeError } from '@package/core/common/errors/message-code.error';
+import config from '@package/infrastructure/config/config.service';
 import { TestHello } from '@package/test/testHello';
 
 patchNestJsSwagger();
@@ -49,9 +49,9 @@ function setupSwagger(app: NestExpressApplication) {
 }
 
 async function bootstrap() {
-  // const pinoLogger = new PinoLogger(config.app.logLevel);
-  // const logger =
-  //   LoggerRegistry.injectImplementation(pinoLogger).createLogger('main');
+  const pinoLogger = new PinoLogger(config.app.logLevel);
+  const logger =
+    LoggerRegistry.injectImplementation(pinoLogger).createLogger('main');
 
   TestHello('HELLO MERAB!');
 
@@ -69,21 +69,22 @@ async function bootstrap() {
   app.use(cookieParser());
   app.useBodyParser('json', { limit: '10mb' });
 
-  // if (config.app.enableHttpLogging) {
-  //   app.use(
-  //     pinoHttp({
-  //       logger: pinoLogger.getPinoInstance(),
-  //     }),
-  //   );
-  // }
+  if (config.app.enableHttpLogging) {
+    app.use(
+      pinoHttp({
+        logger: pinoLogger.getPinoInstance(),
+      }),
+    );
+  }
 
   if (config.swagger.enabled) {
     setupSwagger(app);
   }
 
-  await app.listen(process.env.PORT ?? 3000);
-  // .then(() => logger.info('Successfully started the server'))
-  // .catch((err) => logger.error('Error starting the server', err));
+  await app
+    .listen(process.env.PORT ?? 3000)
+    .then(() => logger.info('Successfully started the server'))
+    .catch((err) => logger.error('Error starting the server', err));
 }
 
 void bootstrap();

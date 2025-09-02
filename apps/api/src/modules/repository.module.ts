@@ -1,17 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  UserTypeOrmModel,
-  UserRepository,
-} from '@package/infrastructure/database/typeorm/models/user.typeorm.model';
+import { UserRepository } from '@package/infrastructure/database/typeorm/models/user.typeorm.model';
 import { UserTypeOrmRepository } from '@package/infrastructure/database/typeorm/repositories/user.typeorm.repository';
 import {
   CUSTOM_PROVIDER_TOKENS,
   TYPEORM_MODELS_REPOSITORY_TOKENS,
 } from './provider-tokens';
+import { TYPEORM_MODELS } from './models';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserTypeOrmModel])],
+  imports: [TypeOrmModule.forFeature(TYPEORM_MODELS)],
   providers: [
     {
       provide: CUSTOM_PROVIDER_TOKENS.REPOSITORIES.USER_REPOSITORY,

@@ -14,7 +14,7 @@ export const getDataSourceOptions = (): DataSourceOptions => {
     migrationsRun: false,
 
     // Entities registration
-    entities: [__dirname + '/../models/*.model.{ts,js}'],
+    // entities: [__dirname + '/../models/*.model.{ts,js}'],
 
     // Auto-sync in development (disable in production!)
     synchronize: dbConfig.synchronizeModels,
@@ -30,6 +30,6 @@ export const getDataSourceOptions = (): DataSourceOptions => {
     },
 
     migrationsTableName: 'migrations',
-    migrations: [__dirname + '/../migrations/*.{ts,js}'],
+    // migrations: [__dirname + '/../migrations/*.{ts,js}'],
   };
 };

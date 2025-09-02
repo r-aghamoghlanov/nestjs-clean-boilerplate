@@ -1,6 +1,6 @@
 import { createClient, RedisClientType } from 'redis';
-import { ICacheService } from '@package/core/cache/cache.interface';
-import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
+import { ICacheService } from '@backend/core/cache/cache.interface';
+import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
 import { RedisConfig } from './configs/redis.config';
 
 export class RedisCacheService implements ICacheService {

@@ -3,7 +3,7 @@
  * Inspired by nestjs-pino logger
  * @see https://github.com/iamolegga/nestjs-pino/
  */
-import { Logger, LogLevel } from '@package/core/common/logger/logger.interface';
+import { Logger, LogLevel } from '@backend/core/common/logger/logger.interface';
 import pino from 'pino';
 
 const transports: pino.TransportMultiOptions = {

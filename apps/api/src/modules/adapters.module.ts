@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CreateUserUseCase } from '@package/core/user/application/use-cases/create-user.user-case';
-import { UserController } from '@package/core/user/adapters/controllers/user.controller';
+import { CreateUserUseCase } from '@backend/core/user/application/use-cases/create-user.user-case';
+import { UserController } from '@backend/core/user/adapters/controllers/user.controller';
 import { NestJSUserController } from '../rest/user.controller';
 import { UseCasesModule } from './use-cases.module';
 import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';

@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
-import { UserController } from '@package/core/user/adapters/controllers/user.controller';
-import { UserResponse } from '@package/core/user/application/dtos/out/user-response-dto';
+import { UserController } from '@backend/core/user/adapters/controllers/user.controller';
+import { UserResponse } from '@backend/core/user/application/dtos/out/user-response-dto';
 import { ROUTES } from './routes';
 import { CreateUserDto } from './dtos/in/create-user.dto';
 import { ApiTags } from '@nestjs/swagger';

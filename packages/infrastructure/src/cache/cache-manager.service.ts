@@ -1,9 +1,9 @@
 import {
   CacheType,
   ICacheManager,
-} from '@package/core/cache/cache-manager.interface';
-import { ICacheService } from '@package/core/cache/cache.interface';
-import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
+} from '@backend/core/cache/cache-manager.interface';
+import { ICacheService } from '@backend/core/cache/cache.interface';
+import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
 
 export class CacheManagerService implements ICacheManager {
   private readonly logger = LoggerRegistry.createLogger(

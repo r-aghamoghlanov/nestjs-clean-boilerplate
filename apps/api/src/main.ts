@@ -9,9 +9,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { patchNestJsSwagger } from 'nestjs-zod';
 import basicAuth from 'express-basic-auth';
 import { PinoLogger } from '@package/infrastructure/logger/pino.logger';
-import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
+import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
 import { pinoHttp } from 'pino-http';
-import { MessageCodeError } from '@package/core/common/errors/message-code.error';
+import { MessageCodeError } from '@backend/core/common/errors/message-code.error';
 import config from '@package/infrastructure/config/config.service';
 import { TestHello } from '@package/test/testHello';
 

@@ -6,10 +6,10 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ZodValidationException } from 'nestjs-zod';
-import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
-import { MessageCodeError } from '@package/core/common/errors/message-code.error';
-import { Language } from '@package/core/common/language.constant';
-import { HttpStatus } from '@package/core/common/errors/error-statuses.constant';
+import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
+import { MessageCodeError } from '@backend/core/common/errors/message-code.error';
+import { Language } from '@backend/core/common/language.constant';
+import { HttpStatus } from '@backend/core/common/errors/error-statuses.constant';
 
 type ErrorStruct = {
   message: string;

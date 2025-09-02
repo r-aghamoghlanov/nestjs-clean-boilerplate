@@ -13,7 +13,7 @@
     },
     "./user/*": {
       "types": "./src/user/*.ts",
-      "default": "./dist/user/domain/*.js"
+      "default": "./dist/user/*.js"
     }
   },
   "scripts": {

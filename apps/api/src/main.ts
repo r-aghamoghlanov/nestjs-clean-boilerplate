@@ -82,8 +82,10 @@ async function bootstrap() {
   }
 
   await app
-    .listen(process.env.PORT ?? 3000)
-    .then(() => logger.info('Successfully started the server'))
+    .listen(config.app.port)
+    .then(() =>
+      logger.info(`Successfully started the server on port ${config.app.port}`),
+    )
     .catch((err) => logger.error('Error starting the server', err));
 }
 

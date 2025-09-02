@@ -1,5 +1,5 @@
 import z from 'zod';
-import { BaseCacheConfig } from '@config/config.validator';
+import { BaseCacheConfig } from '../../config/config.validator';
 
 export const FileCacheConfig = z.object({
   ...BaseCacheConfig.shape,

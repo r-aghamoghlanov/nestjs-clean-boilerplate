@@ -1,4 +1,4 @@
-import { UserTypeOrmModel } from '@database/typeorm/models';
+import { UserTypeOrmModel } from '@package/infrastructure/database/typeorm/models/user.typeorm.model';
 import { getRepositoryToken } from '@nestjs/typeorm';
 
 export const CUSTOM_PROVIDER_TOKENS = {

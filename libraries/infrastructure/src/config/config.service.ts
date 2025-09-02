@@ -5,9 +5,9 @@ import {
   DatabaseConfig,
   SwaggerConfig,
 } from './config.validator';
-import { DeepPartial } from '@common/custom.type';
 import { config as dotenvConfig } from 'dotenv';
-import { LogLevel } from '@common/logger/logger.interface';
+import { DeepPartial } from '@package/core/common/custom.type';
+import { LogLevel } from '@package/core/common/logger/logger.interface';
 
 dotenvConfig({ path: '../../.env' });
 

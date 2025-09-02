@@ -4,12 +4,12 @@ import {
   ExceptionFilter,
   HttpException,
 } from '@nestjs/common';
-import { MessageCodeError } from '@common/errors/message-code.error';
 import { Request, Response } from 'express';
-import { Language } from '@common/language.constant';
-import { HttpStatus } from '@common/errors/error-statuses.constant';
 import { ZodValidationException } from 'nestjs-zod';
-import { LoggerRegistry } from '@common/logger/logger-registry';
+import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
+import { MessageCodeError } from '@package/core/common/errors/message-code.error';
+import { Language } from '@package/core/common/language.constant';
+import { HttpStatus } from '@package/core/common/errors/error-statuses.constant';
 
 type ErrorStruct = {
   message: string;

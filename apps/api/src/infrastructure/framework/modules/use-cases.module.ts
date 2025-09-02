@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { CreateUserUseCase } from '@core/user/application/use-cases/create-user.user-case';
-import type { ICacheManager } from '@core/cache/cache-manager.interface';
-import type { IUserRepository } from '@core/user/application/repositories/user.repository.interface';
+import { CreateUserUseCase } from '@package/core/user/application/use-cases/create-user.user-case';
+import type { ICacheManager } from '@package/core/cache/cache-manager.interface';
+import type { IUserRepository } from '@package/core/user/application/repositories/user.repository.interface';
 import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';
 import { RepositoryModule } from './repository.module';
 import { CacheModule } from './cache-manager.module';

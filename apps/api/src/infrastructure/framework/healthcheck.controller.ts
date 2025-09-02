@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ROUTES } from './rest/routes';
 import { ApiTags } from '@nestjs/swagger';
-import { LoggerRegistry } from '@common/logger/logger-registry';
+import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
 
 @ApiTags('Health Check Endpoints')
 @Controller(ROUTES.HEALTHCHECK.MAIN)

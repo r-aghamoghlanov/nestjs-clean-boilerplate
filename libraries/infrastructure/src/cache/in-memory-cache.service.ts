@@ -1,7 +1,7 @@
-import { ICacheService } from '@core/cache/cache.interface';
-import { CacheEntry, CacheStats } from '@core/cache/cache.types';
-import { InMemoryCacheConfig } from '@cache/configs/in-memory.config';
-import { LoggerRegistry } from '@common/logger/logger-registry';
+import { ICacheService } from '@package/core/cache/cache.interface';
+import { CacheEntry, CacheStats } from '@package/core/cache/cache.types';
+import { InMemoryCacheConfig } from './configs/in-memory.config';
+import { LoggerRegistry } from '@package/core/common/logger/logger-registry';
 
 export class InMemoryCacheService implements ICacheService {
   private readonly logger = LoggerRegistry.createLogger(

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "declaration": true,
     "removeComments": true,
     "emitDecoratorMetadata": true,
@@ -19,14 +19,6 @@
     "strictBindCallApply": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
-    "paths": {
-      "@api/*": ["apps/api/src/*"],
-      "@cache/*": ["libraries/infrastructure/src/cache/*"],
-      "@config/*": ["libraries/infrastructure/src/config/*"],
-      "@framework/*": ["apps/api/src/infrastructure/framework/*"],
-      "@database/*": ["libraries/infrastructure/src/database/*"],
-      "@common/*": ["libraries/core/src/common/*"],
-      "@core/*": ["libraries/core/src/*"]
-    }
+    "strictPropertyInitialization": false
   }
 }

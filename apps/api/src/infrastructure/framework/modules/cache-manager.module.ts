@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';
-import { RedisCacheService } from '@cache/redis-cache.service';
-import { InMemoryCacheService } from '@cache/in-memory-cache.service';
-import { CacheManagerService } from '@cache/cache-manager.service';
-import { RedisConfig } from '@cache/configs/redis.config';
-import { InMemoryCacheConfig } from '@cache/configs/in-memory.config';
-import config from '@config/config.service';
+import { RedisCacheService } from '@package/infrastructure/cache/redis-cache.service';
+import { InMemoryCacheService } from '@package/infrastructure/cache/in-memory-cache.service';
+import { CacheManagerService } from '@package/infrastructure/cache/cache-manager.service';
+import { RedisConfig } from '@package/infrastructure/cache/configs/redis.config';
+import { InMemoryCacheConfig } from '@package/infrastructure/cache/configs/in-memory.config';
+import config from '@package/infrastructure/config/config.service';
 
 @Module({
   providers: [

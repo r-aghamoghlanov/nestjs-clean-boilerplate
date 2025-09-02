@@ -1,4 +1,4 @@
-import { Entity, Column } from 'typeorm';
+import { Entity, Column, Repository } from 'typeorm';
 import { BaseTypeOrmModel } from './base.model';
 import { TABLE_NAMES } from './table-names';
 
@@ -10,3 +10,5 @@ export class UserTypeOrmModel extends BaseTypeOrmModel {
   @Column()
   name: string;
 }
+
+export type UserRepository = Repository<UserTypeOrmModel>;

@@ -1,5 +1,5 @@
 import { DataSourceOptions } from 'typeorm';
-import config from '@config/config.service';
+import config from '../../../config/config.service';
 
 export const getDataSourceOptions = (): DataSourceOptions => {
   const dbConfig = config.db;

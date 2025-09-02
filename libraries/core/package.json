@@ -2,8 +2,20 @@
   "name": "@package/core",
   "version": "1.0.0",
   "description": "Core layer for the application",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "exports": {
+    "./cache/*": {
+      "types": "./src/cache/*.ts",
+      "default": "./dist/cache/*.js"
+    },
+    "./common/*": {
+      "types": "./src/common/*.ts",
+      "default": "./dist/common/*.js"
+    },
+    "./user/*": {
+      "types": "./src/user/*.ts",
+      "default": "./dist/user/domain/*.js"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",

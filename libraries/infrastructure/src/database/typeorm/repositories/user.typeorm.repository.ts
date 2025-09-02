@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { UserTypeOrmModel } from '../models/user.typeorm.model';
-import { User } from '@core/user/domain/user.entity';
-import { IUserRepository } from '@core/user/application/repositories/user.repository.interface';
+import { User } from '@package/core/user/domain/user.entity';
+import { IUserRepository } from '@package/core/user/application/repositories/user.repository.interface';
 
 export class UserTypeOrmRepository implements IUserRepository {
   constructor(private readonly userRepository: Repository<UserTypeOrmModel>) {}

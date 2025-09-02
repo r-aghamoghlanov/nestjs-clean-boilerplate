@@ -32,9 +32,10 @@
     "access": "restricted"
   },
   "dependencies": {
+    "@package/core": "workspace:*",
     "pino": "^9.9.0",
-    "zod": "^3.25.76",
-    "@package/core": "workspace:*"
+    "redis": "^4.7.1",
+    "zod": "^3.25.76"
   },
   "peerDependencies": {
     "typeorm": "^0.3.26"

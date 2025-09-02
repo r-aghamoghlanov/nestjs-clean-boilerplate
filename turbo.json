@@ -8,6 +8,14 @@
     "dev": {
       "persistent": true,
       "cache": false
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {},
+    "test": {
+      "cache": false,
+      "inputs": ["**/*.test.ts", "**/*.test.tsx", "vitest.config.ts"]
     }
   }
 }

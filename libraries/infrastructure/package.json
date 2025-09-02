@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@package/core": "workspace:*",
+    "dotenv": "^17.2.1",
     "pino": "^9.9.0",
     "redis": "^4.7.1",
     "zod": "^3.25.76"

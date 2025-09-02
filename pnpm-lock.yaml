@@ -226,6 +226,9 @@ importers:
       '@package/core':
         specifier: workspace:*
         version: link:../core
+      dotenv:
+        specifier: ^17.2.1
+        version: 17.2.1
       pino:
         specifier: ^9.9.0
         version: 9.9.0

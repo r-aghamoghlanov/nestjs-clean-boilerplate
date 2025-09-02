@@ -26,7 +26,27 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "typeorm": "npm run build && npx typeorm -d dist/database/typeorm/datasource/datasource.js",
+    "db:setup": "dropdb clean-architecture-boilerplate; createdb clean-architecture-boilerplate",
+    "db:migration:generate": "npm run typeorm -- migration:generate src/database/typeorm/migrations/$npm_config_name-migration",
+    "db:migration:create": "npm run typeorm -- migration:create src/database/typeorm/migrations/$npm_config_name-migration",
+    "db:migration:revert": "npm run typeorm -- migration:revert",
+    "db:migration:run": "npm run typeorm -- migration:run"
+  },
+  "scriptDescriptions": {
+    "build": "Build the project",
+    "build:watch": "Build the project in watch mode",
+    "test": "Run tests",
+    "test:watch": "Run tests in watch mode",
+    "lint": "Lint the project",
+    "clean": "Clean the project",
+    "typeorm": "Run typeorm",
+    "db:setup": "Drops and creates development database",
+    "db:migration:generate": "Generate a new migration based on the state of the models (e.g. npm run db:migration:generate --name=user)",
+    "db:migration:create": "Create a new empty migration (e.g. npm run db:migration:create --name=user)",
+    "db:migration:revert": "Revert the last migration",
+    "db:migration:run": "Run all pending migrations"
   },
   "keywords": [],
   "author": "Rustam Aghamoghlanov",
@@ -35,7 +55,7 @@
   "publishConfig": {
     "access": "restricted"
   },
-  "dependencies": { 
+  "dependencies": {
     "@backend/core": "workspace:*",
     "dotenv": "^17.2.1",
     "pino": "^9.9.0",

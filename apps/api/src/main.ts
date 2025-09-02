@@ -1,8 +1,8 @@
 import type { NestExpressApplication } from '@nestjs/platform-express';
 import { NestFactory } from '@nestjs/core';
-import { AppModule as NestAppModule } from './infrastructure/framework/app.module';
+import { AppModule as NestAppModule } from './app.module';
 import { VersioningType } from '@nestjs/common';
-import { ROUTES } from './infrastructure/framework/rest/routes';
+import { ROUTES } from './rest/routes';
 import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';

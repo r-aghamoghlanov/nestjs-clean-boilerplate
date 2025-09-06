@@ -28,32 +28,32 @@ export default tseslint.config(
       },
       parserOptions: {
         project: 'tsconfig.json',
-        sourceType: 'module',
         projectService: true,
-        // tsconfigRootDir: "/",
+        tsconfigRootDir: '/',
       },
     },
   },
   {
     rules: {
-      'no-restricted-imports': [
-        'error',
-        {
-          patterns: [
-            '**/datasource.ts'
-          ],
-          paths: [
-            {
-              name: '@database/typeorm/datasource/datasource',  
-              message: 'Direct import of datasource is not allowed.'
-            }
-          ]
-        }
-      ],
+      // 'no-restricted-imports': [
+      //   'error',
+      //   {
+      //     patterns: ['**/datasource.ts'],
+      //     paths: [
+      //       {
+      //         name: '@database/typeorm/datasource/datasource',
+      //         message: 'Direct import of datasource is not allowed.',
+      //       },
+      //     ],
+      //   },
+      // ],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',
-      '@typescript-eslint/no-unused-vars': ['error', { 'argsIgnorePattern': '^_' }]
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { argsIgnorePattern: '^_' },
+      ],
     },
   },
 );

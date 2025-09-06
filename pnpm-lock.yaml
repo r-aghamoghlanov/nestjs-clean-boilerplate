@@ -8,36 +8,12 @@ importers:
 
   .:
     devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3.2.0
-        version: 3.3.1
-      '@eslint/js':
-        specifier: ^9.18.0
-        version: 9.34.0
-      '@types/node':
-        specifier: ^22.18.0
-        version: 22.18.0
-      eslint:
-        specifier: ^9.18.0
-        version: 9.34.0
-      eslint-config-prettier:
-        specifier: ^10.0.1
-        version: 10.1.8(eslint@9.34.0)
-      eslint-plugin-prettier:
-        specifier: ^5.2.2
-        version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.34.0))(eslint@9.34.0)(prettier@3.6.2)
-      globals:
-        specifier: ^16.0.0
-        version: 16.3.0
       prettier:
         specifier: ^3.4.2
         version: 3.6.2
       turbo:
         specifier: ^2.5.6
         version: 2.5.6
-      typescript-eslint:
-        specifier: ^8.20.0
-        version: 8.41.0(eslint@9.34.0)(typescript@5.9.2)
 
   apps/api:
     dependencies:
@@ -117,6 +93,12 @@ importers:
       '@nestjs/testing':
         specifier: ^11.0.1
         version: 11.1.6(@nestjs/common@11.1.6(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/platform-express@11.1.6)
+      '@package/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@package/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@swc/cli':
         specifier: ^0.6.0
         version: 0.6.0(@swc/core@1.13.5)(chokidar@4.0.3)
@@ -205,6 +187,12 @@ importers:
       '@nestjs/testing':
         specifier: ^11.0.1
         version: 11.1.6(@nestjs/common@11.1.6(class-transformer@0.5.1)(class-validator@0.14.2)(reflect-metadata@0.2.2)(rxjs@7.8.2))(@nestjs/core@11.1.6)(@nestjs/platform-express@11.1.6)
+      '@package/eslint-config':
+        specifier: workspace:*
+        version: link:../../packages/eslint-config
+      '@package/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.3
@@ -247,9 +235,45 @@ importers:
 
   core:
     devDependencies:
+      '@package/eslint-config':
+        specifier: workspace:*
+        version: link:../packages/eslint-config
+      '@package/typescript-config':
+        specifier: workspace:*
+        version: link:../packages/typescript-config
+      '@types/node':
+        specifier: ^22.10.7
+        version: 22.18.0
       typescript:
         specifier: ~5.9.2
         version: 5.9.2
+
+  packages/eslint-config:
+    devDependencies:
+      '@eslint/eslintrc':
+        specifier: ^3.2.0
+        version: 3.3.1
+      '@eslint/js':
+        specifier: ^9.18.0
+        version: 9.34.0
+      eslint:
+        specifier: ^9.18.0
+        version: 9.34.0
+      eslint-config-prettier:
+        specifier: ^10.0.1
+        version: 10.1.8(eslint@9.34.0)
+      eslint-plugin-prettier:
+        specifier: ^5.2.2
+        version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@10.1.8(eslint@9.34.0))(eslint@9.34.0)(prettier@3.6.2)
+      globals:
+        specifier: ^16.0.0
+        version: 16.3.0
+      typescript:
+        specifier: ~5.9.2
+        version: 5.9.2
+      typescript-eslint:
+        specifier: ^8.20.0
+        version: 8.41.0(eslint@9.34.0)(typescript@5.9.2)
 
   packages/infrastructure:
     dependencies:
@@ -272,9 +296,20 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
+      '@package/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@package/typescript-config':
+        specifier: workspace:*
+        version: link:../typescript-config
+      '@types/node':
+        specifier: ^22.10.7
+        version: 22.18.0
       typescript:
         specifier: ~5.9.2
         version: 5.9.2
+
+  packages/typescript-config: {}
 
 packages:
 

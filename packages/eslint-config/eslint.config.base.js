@@ -4,7 +4,7 @@ import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended'
 import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
-export default tseslint.config(
+export const config = tseslint.config(
   {
     ignores: ['eslint.config.mjs', 'dist/**', 'node_modules/**'],
   },
@@ -27,7 +27,7 @@ export default tseslint.config(
         ...globals.jest,
       },
       parserOptions: {
-        project: 'tsconfig.json',
+        project: '@package/typescript-config/tsconfig.json',
         projectService: true,
         tsconfigRootDir: '/',
       },
@@ -35,18 +35,6 @@ export default tseslint.config(
   },
   {
     rules: {
-      // 'no-restricted-imports': [
-      //   'error',
-      //   {
-      //     patterns: ['**/datasource.ts'],
-      //     paths: [
-      //       {
-      //         name: '@database/typeorm/datasource/datasource',
-      //         message: 'Direct import of datasource is not allowed.',
-      //       },
-      //     ],
-      //   },
-      // ],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
       '@typescript-eslint/no-unsafe-argument': 'warn',

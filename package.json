@@ -24,33 +24,8 @@
     "lint": "pnpm run --recursive --filter \"./apps/**\" start:lint"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.2.0",
-    "@eslint/js": "^9.18.0",
-    "@types/node": "^22.18.0",
-    "eslint": "^9.18.0",
-    "eslint-config-prettier": "^10.0.1",
-    "eslint-plugin-prettier": "^5.2.2",
-    "globals": "^16.0.0",
     "prettier": "^3.4.2",
-    "turbo": "^2.5.6",
-    "typescript-eslint": "^8.20.0"
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "ts"
-    ],
-    "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
-    "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
-    },
-    "collectCoverageFrom": [
-      "**/*.(t|j)s"
-    ],
-    "coverageDirectory": "../coverage",
-    "testEnvironment": "node"
+    "turbo": "^2.5.6"
   },
   "packageManager": "pnpm@10.15.1"
 }

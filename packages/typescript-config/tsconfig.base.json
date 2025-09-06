@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -10,7 +11,7 @@
     "target": "ES2023",
     "esModuleInterop": true,
     "sourceMap": true,
-    "baseUrl": "./",
+    // "baseUrl": "./",
     "incremental": false,
     "skipLibCheck": true,
     "strictNullChecks": true,

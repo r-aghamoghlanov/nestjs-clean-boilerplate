@@ -66,6 +66,9 @@
     "typeorm": "^0.3.26"
   },
   "devDependencies": {
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "@types/node": "^22.10.7",
+    "@package/typescript-config": "workspace:*",
+    "@package/eslint-config": "workspace:*"
   }
 }

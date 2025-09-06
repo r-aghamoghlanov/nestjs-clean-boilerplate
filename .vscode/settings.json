@@ -2,6 +2,6 @@
   "prettier.configPath": ".prettierrc",
   "prettier.prettierPath": "./node_modules/prettier",
   "prettier.requireConfig": true,
-  "editor.mouseWheelZoom": true,
-  "typescript.tsdk": "node_modules/typescript/lib"
+  "editor.mouseWheelZoom": true
+  // "typescript.tsdk": "node_modules/typescript/lib"
 }

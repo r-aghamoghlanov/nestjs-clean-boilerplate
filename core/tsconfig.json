@@ -1,5 +1,5 @@
 {
-  "extends": "../tsconfig.base.json",
+  "extends": "@package/typescript-config/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,

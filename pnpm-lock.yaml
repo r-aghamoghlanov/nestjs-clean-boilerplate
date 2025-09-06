@@ -65,9 +65,6 @@ importers:
       '@package/infrastructure':
         specifier: workspace:*
         version: link:../../packages/infrastructure
-      '@package/test':
-        specifier: workspace:*
-        version: link:../../packages/test
       class-transformer:
         specifier: ^0.5.1
         version: 0.5.1
@@ -172,7 +169,7 @@ importers:
         specifier: ^4.2.0
         version: 4.2.0
 
-  apps/ui:
+  apps/web:
     dependencies:
       react:
         specifier: ^19.1.1
@@ -242,12 +239,6 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
-      typescript:
-        specifier: ~5.9.2
-        version: 5.9.2
-
-  packages/test:
-    dependencies:
       typescript:
         specifier: ~5.9.2
         version: 5.9.2

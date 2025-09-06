@@ -3,6 +3,5 @@
   "prettier.prettierPath": "./node_modules/prettier",
   "prettier.requireConfig": true,
   "editor.mouseWheelZoom": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "cSpell.words": ["createdb", "dropdb"]
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

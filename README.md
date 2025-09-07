@@ -49,16 +49,12 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
 
 ## Features
 
-- [x] Clear separation between Business & Domain Layers / Infrastructure Layer
+- [x] Clear separation between Application & Domain & Infrastructure Layers
 - [x] Agnostic Database Layer
   - [] Transactional Wrapper
   - [x] TypeORM integration
     - [x] TypeORM Main Configuration
-    - [x] Typeorm Migration Configuration
-- [ ] Agnostic Cron Jobs & Batch Jobs Processing Module
-  - [ ] BullMQ integration
-- [ ] Agnostic Mailer Module
-  - [ ] Nodemailer integration
+    - [x] TypeORM Migration Configuration
 - [x] Agnostic Cache Module
   - [x] Redis Cache Integration
   - [x] Basic In-Memory Cache as an Example
@@ -70,3 +66,19 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
 - [x] Env Configuration
 - [x] Zod validation + OpenAPI (Swagger) integration
 - [ ] File Upload & File Download
+- [ ] Agnostic Cron Jobs & Batch Jobs Processing Module
+  - [ ] BullMQ integration
+- [ ] Agnostic Mailer Module
+  - [ ] Nodemailer integration
+
+### MonoRepo Config
+
+- [x] Turborepo for controlling monorepo
+- [x] Eslint config
+- [x] Typescript config
+- [x] Apps workspace with worker & API boilerplates
+- [x] Core layer as a separate workspace
+- [x] Compiled (buildable) Internal Packages
+  - [x] Reusable typescript as package
+  - [x] Reusable eslint config as package
+  - [x] Infrastructure layer as package

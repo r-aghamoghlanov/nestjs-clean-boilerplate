@@ -1,6 +1,10 @@
 {
   "name": "@package/eslint-config",
   "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./eslint.config.base": "./eslint.config.base.js"
+  },
   "description": "ESLint config for the project",
   "author": "Rustam Aghamoghlanov",
   "private": true,

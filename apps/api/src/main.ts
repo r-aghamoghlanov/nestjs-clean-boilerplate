@@ -12,7 +12,7 @@ import { PinoLogger } from '@package/infrastructure/logger/pino.logger';
 import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
 import { pinoHttp } from 'pino-http';
 import { MessageCodeError } from '@backend/core/common/errors/message-code.error';
-import config from '@package/infrastructure/config/config.service';
+import { config } from './config';
 
 patchNestJsSwagger();
 

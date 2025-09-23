@@ -1,9 +1,9 @@
 import { DataSourceOptions } from 'typeorm';
-import config from '../../../config/config.service';
+import { DatabaseConfig } from '../../../config/config.validator';
 
-export const getDataSourceOptions = (): DataSourceOptions => {
-  const dbConfig = config.db;
-
+export const getDataSourceOptions = (
+  dbConfig: DatabaseConfig,
+): DataSourceOptions => {
   return {
     type: 'postgres',
     host: dbConfig.host,
@@ -16,8 +16,8 @@ export const getDataSourceOptions = (): DataSourceOptions => {
     // Entities registration
     // entities: [__dirname + '/../models/*.model.{ts,js}'],
 
-    // Auto-sync in development (disable in production!)
-    synchronize: dbConfig.synchronizeModels,
+    // Never auto-sync models, use migrations instead
+    synchronize: false,
 
     // Logging
     logging: dbConfig.enableQueryLogging,

@@ -1,93 +1,87 @@
-import {
-  AppConfig,
-  BaseCacheConfig,
-  Config,
-  DatabaseConfig,
-  SwaggerConfig,
-} from './config.validator';
+import path from 'node:path';
+import fs from 'node:fs';
+import { z } from 'zod';
 import { config as dotenvConfig } from 'dotenv';
 import { DeepPartial } from '@backend/core/common/custom.type';
-import { LogLevel } from '@backend/core/common/logger/logger.interface';
+import { ConfigServiceOptions, Env, IConfigService } from './config.types';
 
-dotenvConfig({ path: '../../.env' });
+export class ConfigService<T> implements IConfigService<T> {
+  private readonly _env: Env = process.env;
+  private readonly _config: T;
+  private readonly _name?: string;
+  private readonly _configBuilder: (
+    findFn: (key: string) => string | undefined,
+  ) => DeepPartial<T>;
 
-export interface IConfigService {
-  find(key: string): string | undefined;
-  get db(): DatabaseConfig;
-  get app(): AppConfig;
-  get swagger(): SwaggerConfig;
-  get baseCache(): BaseCacheConfig;
-}
+  constructor(options: ConfigServiceOptions<T>) {
+    this._name = options.name;
+    this._configBuilder = options.configBuilder;
 
-type Env = { [k: string]: string | undefined };
-class ConfigService implements IConfigService {
-  private readonly _env: Env;
-  private readonly _config: Config;
+    // Load environment variables
+    this._env = this.loadEnvironment(options.envFilePath);
 
-  constructor(env?: Env) {
-    this._env = env ?? process.env;
-    this._config = this.validateConfig(this.buildRawConfig());
+    // Build and validate config
+    this._config = this.validateConfig(
+      this.buildRawConfig(),
+      options.validationSchema,
+    );
+
     console.debug(
-      `[${ConfigService.name}] Config loaded and validated`,
+      `[${ConfigService.name}] Config loaded and validated for ${this._name || 'unknown'}`,
       this._config,
     );
-  }
-
-  get db(): DatabaseConfig {
-    return this._config.database;
-  }
-
-  get app(): AppConfig {
-    return this._config.app;
-  }
-
-  get swagger(): SwaggerConfig {
-    return this._config.swagger;
-  }
-
-  get baseCache(): BaseCacheConfig {
-    return this._config.baseCache;
   }
 
   public find(key: string): string | undefined {
     return this._env[key];
   }
 
-  private buildRawConfig(): DeepPartial<Config> {
-    const configObj: DeepPartial<Config> = {
-      database: {
-        host: this.find('DATABASE_HOST'),
-        port: Number(this.find('DATABASE_PORT') ?? 5432),
-        username: this.find('DATABASE_USERNAME'),
-        password: this.find('DATABASE_PASSWORD'),
-        database: this.find('DATABASE_NAME'),
-        synchronizeModels: this.find('SYNC_MODELS') === 'true',
-        enableQueryLogging: this.find('LOG_GENERATED_QUERIES') === 'true',
-      },
-      app: {
-        port: Number(this.find('PORT') ?? 3000),
-        logLevel: this.find('LOG_LEVEL') as LogLevel,
-        enableHttpLogging: this.find('ENABLE_HTTP_LOGGING') === 'true',
-      },
-      baseCache: {
-        defaultTTL: Number(this.find('CACHE_DEFAULT_TTL_IN_SECONDS') ?? 3600),
-        keyPrefix: this.find('CACHE_KEY_PREFIX'),
-      },
-      swagger: {
-        enabled: this.find('ENABLE_SWAGGER_UI') === 'true',
-        user: this.find('API_DOCS_USER'),
-        password: this.find('API_DOCS_PASS'),
-      },
-    };
-
-    return configObj;
+  public get<K extends keyof T>(key: K): T[K] {
+    return this._config[key];
   }
 
-  private validateConfig(rawConfig: DeepPartial<Config>): Config {
+  public getConfig(): T {
+    return this._config;
+  }
+
+  private loadEnvironment(envFilePath: string): Env {
+    if (envFilePath) {
+      const resolvedPath = path.resolve(envFilePath);
+      if (fs.existsSync(resolvedPath)) {
+        console.debug(
+          `[${ConfigService.name}] Loading .env from: ${resolvedPath}`,
+        );
+        dotenvConfig({ path: resolvedPath });
+        // Merge the loaded env vars
+        Object.assign(this._env, process.env);
+      } else {
+        console.warn(
+          `[${ConfigService.name}] .env file not found at: ${resolvedPath}`,
+        );
+      }
+    }
+
+    return this._env;
+  }
+
+  private buildRawConfig(): DeepPartial<T> {
+    return this._configBuilder(this.find.bind(this));
+  }
+
+  private validateConfig(
+    rawConfig: DeepPartial<T>,
+    validationSchema: z.ZodSchema<T>,
+  ): T {
     try {
-      const validatedConfig = Config.parse(rawConfig);
+      const validatedConfig = validationSchema.parse(rawConfig);
       return validatedConfig;
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMessage = error.errors
+          .map((err) => `${err.path.join('.')}: ${err.message}`)
+          .join(', ');
+        throw new Error(`Configuration validation failed: ${errorMessage}`);
+      }
       if (error instanceof Error) {
         throw new Error(`Configuration validation failed: ${error.message}`);
       }
@@ -95,5 +89,3 @@ class ConfigService implements IConfigService {
     }
   }
 }
-
-export default new ConfigService(process.env);

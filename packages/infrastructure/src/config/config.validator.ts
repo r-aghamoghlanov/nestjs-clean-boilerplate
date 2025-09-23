@@ -7,7 +7,6 @@ const DatabaseConfig = z.object({
   username: z.string().min(1, 'Database username is required'),
   password: z.string().optional(),
   database: z.string().min(1, 'Database name is required'),
-  synchronizeModels: z.boolean().optional(),
   enableQueryLogging: z.boolean().optional(),
 });
 export type DatabaseConfig = z.infer<typeof DatabaseConfig>;
@@ -53,12 +52,30 @@ const BaseCacheConfig = z.object({
 });
 export type BaseCacheConfig = z.infer<typeof BaseCacheConfig>;
 
-const Config = z.object({
+const ApiAppConfig = z.object({
   database: DatabaseConfig,
   app: AppConfig,
   swagger: SwaggerConfig,
   baseCache: BaseCacheConfig,
 });
+export type ApiAppConfig = z.infer<typeof ApiAppConfig>;
+
+const WorkerAppConfig = z.object({
+  database: DatabaseConfig,
+  app: AppConfig,
+  baseCache: BaseCacheConfig,
+});
+export type WorkerAppConfig = z.infer<typeof WorkerAppConfig>;
+
+const InfrastructureConfig = z.object({
+  app: z.object({
+    logLevel: AppConfig.shape.logLevel,
+  }),
+  database: DatabaseConfig,
+});
+export type InfrastructureConfig = z.infer<typeof InfrastructureConfig>;
+
+const Config = z.union([ApiAppConfig, WorkerAppConfig, InfrastructureConfig]);
 export type Config = z.infer<typeof Config>;
 
-export { Config, DatabaseConfig, AppConfig, SwaggerConfig, BaseCacheConfig };
+export { Config, ApiAppConfig, WorkerAppConfig, InfrastructureConfig };

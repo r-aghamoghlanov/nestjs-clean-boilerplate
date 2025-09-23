@@ -1,8 +1,8 @@
 import z from 'zod';
-import { BaseCacheConfig } from '../../config/config.validator';
 
 export const FileCacheConfig = z.object({
-  ...BaseCacheConfig.shape,
+  defaultTTL: z.number().int().positive().optional(),
+  keyPrefix: z.string().optional(),
   directory: z.string().min(1),
   maxFileSize: z.number().int().positive().optional(),
   cleanupInterval: z.number().int().positive().optional(),

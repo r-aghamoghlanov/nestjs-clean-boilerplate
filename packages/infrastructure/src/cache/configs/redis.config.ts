@@ -1,8 +1,8 @@
 import z from 'zod';
-import { BaseCacheConfig } from '../../config/config.validator';
 
 export const RedisConfig = z.object({
-  ...BaseCacheConfig.shape,
+  defaultTTL: z.number().int().positive().optional(),
+  keyPrefix: z.string().optional(),
   host: z.string().min(1),
   port: z.number().int().positive(),
   password: z.string(),

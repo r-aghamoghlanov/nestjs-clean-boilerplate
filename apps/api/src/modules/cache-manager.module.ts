@@ -5,7 +5,7 @@ import { InMemoryCacheService } from '@package/infrastructure/cache/in-memory-ca
 import { CacheManagerService } from '@package/infrastructure/cache/cache-manager.service';
 import { RedisConfig } from '@package/infrastructure/cache/configs/redis.config';
 import { InMemoryCacheConfig } from '@package/infrastructure/cache/configs/in-memory.config';
-import config from '@package/infrastructure/config/config.service';
+import { configService, config } from '../config';
 
 @Module({
   providers: [
@@ -13,19 +13,25 @@ import config from '@package/infrastructure/config/config.service';
       useFactory: () => {
         const redisConfig = RedisConfig.parse({
           ...config.baseCache,
-          host: config.find('REDIS_HOST') ?? 'localhost',
-          port: Number(config.find('REDIS_PORT') ?? 6379),
-          password: config.find('REDIS_PASSWORD'),
-          db: Number(config.find('REDIS_DB') ?? 0),
-          connectTimeout: Number(config.find('REDIS_CONNECT_TIMEOUT') ?? 5000),
-          retryDelayOnFailover: Number(config.find('REDIS_RETRY_DELAY') ?? 100),
+          host: configService.find('REDIS_HOST') ?? 'localhost',
+          port: Number(configService.find('REDIS_PORT') ?? 6379),
+          password: configService.find('REDIS_PASSWORD'),
+          db: Number(configService.find('REDIS_DB') ?? 0),
+          connectTimeout: Number(
+            configService.find('REDIS_CONNECT_TIMEOUT') ?? 5000,
+          ),
+          retryDelayOnFailover: Number(
+            configService.find('REDIS_RETRY_DELAY') ?? 100,
+          ),
         });
 
         const inMemoryConfig = InMemoryCacheConfig.parse({
           ...config.baseCache,
-          maxSize: Number(config.find('IN_MEMORY_CACHE_MAX_SIZE') ?? 1000),
+          maxSize: Number(
+            configService.find('IN_MEMORY_CACHE_MAX_SIZE') ?? 1000,
+          ),
           checkInterval: Number(
-            config.find('IN_MEMORY_CACHE_CHECK_INTERVAL') ?? 60000,
+            configService.find('IN_MEMORY_CACHE_CHECK_INTERVAL') ?? 60000,
           ),
         });
 

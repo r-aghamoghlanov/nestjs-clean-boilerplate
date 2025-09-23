@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { BaseCacheConfig } from '../../config/config.validator';
 
 export const InMemoryCacheConfig = z.object({
-  ...BaseCacheConfig.shape,
+  defaultTTL: z.number().int().positive().optional(),
+  keyPrefix: z.string().optional(),
   maxSize: z.number().int().positive(),
   checkInterval: z.number().int().positive(),
 });

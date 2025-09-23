@@ -89,7 +89,6 @@ export class ConfigServiceFactory {
           username: find('DATABASE_USERNAME'),
           password: find('DATABASE_PASSWORD'),
           database: find('DATABASE_NAME'),
-          enableQueryLogging: find('LOG_GENERATED_QUERIES') === 'true',
         },
       }),
     });

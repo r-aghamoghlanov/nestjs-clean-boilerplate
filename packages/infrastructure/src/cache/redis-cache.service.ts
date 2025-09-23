@@ -29,49 +29,6 @@ export class RedisCacheService implements ICacheService {
     this.connect();
   }
 
-  private async connect(): Promise<void> {
-    try {
-      await this.client.connect();
-      this.isConnected = true;
-    } catch (error) {
-      this.logger.error('Failed to connect to Redis:', error);
-      throw error;
-    }
-  }
-
-  private setupEventHandlers(): void {
-    this.client.on('error', (error) => {
-      this.logger.error('Redis error:', error);
-      this.isConnected = false;
-    });
-
-    this.client.on('connect', () => {
-      this.logger.info('Connected to Redis');
-      this.isConnected = true;
-    });
-
-    this.client.on('disconnect', () => {
-      this.logger.info('Disconnected from Redis');
-      this.isConnected = false;
-    });
-  }
-
-  private getPrefixedKey(key: string): string {
-    return `${this.config.keyPrefix}:${key}`;
-  }
-
-  private removePrefix(key: string): string {
-    const prefix = `${this.config.keyPrefix}:`;
-    return key.startsWith(prefix) ? key.substring(prefix.length) : key;
-    return key;
-  }
-
-  private ensureConnection(): void {
-    if (!this.isConnected) {
-      throw new Error('Redis client is not connected');
-    }
-  }
-
   async set<T>(key: string, value: T, ttl?: number): Promise<void> {
     this.ensureConnection();
     const prefixedKey = this.getPrefixedKey(key);
@@ -194,5 +151,48 @@ export class RedisCacheService implements ICacheService {
 
     // Redis returns -1 if key exists but has no TTL, -2 if key doesn't exist
     return ttl === -2 ? -1 : ttl;
+  }
+
+  private setupEventHandlers(): void {
+    this.client.on('error', (error) => {
+      this.logger.error('Redis error:', error);
+      this.isConnected = false;
+    });
+
+    this.client.on('connect', () => {
+      this.logger.info('Connected to Redis');
+      this.isConnected = true;
+    });
+
+    this.client.on('disconnect', () => {
+      this.logger.info('Disconnected from Redis');
+      this.isConnected = false;
+    });
+  }
+
+  private getPrefixedKey(key: string): string {
+    return `${this.config.keyPrefix}:${key}`;
+  }
+
+  private removePrefix(key: string): string {
+    const prefix = `${this.config.keyPrefix}:`;
+    return key.startsWith(prefix) ? key.substring(prefix.length) : key;
+    return key;
+  }
+
+  private ensureConnection(): void {
+    if (!this.isConnected) {
+      throw new Error('Redis client is not connected');
+    }
+  }
+
+  private async connect(): Promise<void> {
+    try {
+      await this.client.connect();
+      this.isConnected = true;
+    } catch (error) {
+      this.logger.error('Failed to connect to Redis:', error);
+      throw error;
+    }
   }
 }

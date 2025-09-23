@@ -35,10 +35,10 @@ import { configService, config } from '../config';
           ),
         });
 
-        const redisCache = new RedisCacheService(redisConfig);
-        const inMemoryCache = new InMemoryCacheService(inMemoryConfig);
-
-        return new CacheManagerService(redisCache, inMemoryCache);
+        return new CacheManagerService(
+          new RedisCacheService(redisConfig),
+          new InMemoryCacheService(inMemoryConfig),
+        );
       },
       provide: CUSTOM_PROVIDER_TOKENS.CACHE_MANAGER,
     },

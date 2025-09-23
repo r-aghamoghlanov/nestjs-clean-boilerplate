@@ -9,7 +9,7 @@ export const CacheType = {
   /**
    * In-memory storage for fast access (Custom Map, LRU, etc.)
    */
-  IN_MEMORY: 'in-memory',
+  IN_MEMORY: 'in_memory',
 } as const;
 
 export type CacheType = (typeof CacheType)[keyof typeof CacheType];

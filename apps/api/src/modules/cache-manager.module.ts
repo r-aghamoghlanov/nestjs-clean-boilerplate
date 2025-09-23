@@ -45,4 +45,4 @@ import { configService, config } from '../config';
   ],
   exports: [CUSTOM_PROVIDER_TOKENS.CACHE_MANAGER],
 })
-export class CacheModule {}
+export class CacheManagerModule {}

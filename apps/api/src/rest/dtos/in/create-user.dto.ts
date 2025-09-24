@@ -1,15 +1,19 @@
 import { createZodDto } from 'nestjs-zod';
 import { z } from 'zod';
+import { errorMessageKeys } from '@backend/core/common/errors/error-messages.constant';
 
 const CreateUserSchema = z.object({
-  email: z.string().email('Invalid email address').describe('User email'),
+  email: z
+    .string()
+    .email(errorMessageKeys['user:alreadyExists'])
+    .describe('User email'),
   name: z
     .string()
-    .min(1, 'Name must be at least 1 character long')
+    .min(6, errorMessageKeys['validation:invalidName'])
     .describe('User name'),
   password: z
     .string()
-    .min(8, 'Password must be at least 8 characters long')
+    .min(8, errorMessageKeys['validation:invalidPassword'])
     .describe('User password'),
 });
 

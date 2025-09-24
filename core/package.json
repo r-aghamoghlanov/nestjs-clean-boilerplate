@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "build:watch": "tsc --watch",
+    "dev": "tsc --watch",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src/**/*.ts",
@@ -29,7 +29,7 @@
   },
   "scriptDescriptions": {
     "build": "Build the project",
-    "build:watch": "Build the project in watch mode",
+    "dev": "Build the project in watch mode",
     "test": "Run tests",
     "test:watch": "Run tests in watch mode",
     "lint": "Lint the project",

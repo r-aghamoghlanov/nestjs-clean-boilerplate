@@ -10,6 +10,8 @@ import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
 import { MessageCodeError } from '@backend/core/common/errors/message-code.error';
 import { Language } from '@backend/core/common/language.constant';
 import { HttpStatus } from '@backend/core/common/errors/error-statuses.constant';
+import { errorMessageKeys } from '@backend/core/common/errors/error-messages.constant';
+import { ErrorMessageCode } from '@backend/core/common/errors/error-message.type';
 
 type ErrorStruct = {
   message: string;
@@ -81,17 +83,18 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         details: [],
       },
     };
+    const language =
+      (request.headers['accept-language'] as Language) || Language.EN;
 
     if (exception instanceof MessageCodeError) {
       /** MessageCodeError, Set all header variable to
        * have a context for the client in case of MessageCodeError.
        */
-      const language =
-        (request.headers['accept-language'] as Language) || Language.EN;
 
       const localizedErrorMessage = MessageCodeError.localize(
-        exception,
+        exception.messageCode,
         language,
+        exception.errorBody,
       );
       responsePayload.statusCode = exception.statusCode;
       responsePayload.error.message = localizedErrorMessage;
@@ -100,13 +103,27 @@ export class GlobalExceptionFilter implements ExceptionFilter {
         : [];
     } else if (exception instanceof ZodValidationException) {
       responsePayload.statusCode = exception.getStatus();
-      responsePayload.error.message = exception.message;
       responsePayload.error.details = exception
         .getZodError()
-        .errors.map((e) => ({
-          path: e.path.join('.'),
-          message: e.message,
-        }));
+        .errors.map((e) => {
+          const errorMessage =
+            e.message in errorMessageKeys
+              ? MessageCodeError.localize(
+                  e.message as ErrorMessageCode,
+                  language,
+                )
+              : // Fallback to generic validation error message
+                MessageCodeError.localize('validation:error', language);
+
+          return {
+            path: e.path.join('.'),
+            message: errorMessage,
+          };
+        });
+
+      responsePayload.error.message = responsePayload.error.details
+        .map((d) => d.message)
+        .join(', ');
     }
 
     return responsePayload;

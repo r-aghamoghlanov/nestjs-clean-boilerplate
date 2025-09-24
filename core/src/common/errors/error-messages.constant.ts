@@ -54,6 +54,36 @@ export const errorMessagesConstants = {
       ru: 'Неверный номер телефона',
     },
   },
+  'validation:invalidEmail': {
+    statusText: HttpStatus.BAD_REQUEST.description,
+    statusCode: HttpStatus.BAD_REQUEST.code,
+    errorMessage: 'Invalid email address',
+    userMessage: {
+      en: 'Invalid email address',
+      az: 'Yanlış email ünvanı',
+      ru: 'Неверный адрес электронной почты',
+    },
+  },
+  'validation:invalidPassword': {
+    statusText: HttpStatus.BAD_REQUEST.description,
+    statusCode: HttpStatus.BAD_REQUEST.code,
+    errorMessage: 'Invalid password',
+    userMessage: {
+      en: 'Password must be at least 8 characters long',
+      az: 'Şifrə ən az 8 simvol olmalıdır',
+      ru: 'Пароль должен быть не менее 8 символов',
+    },
+  },
+  'validation:invalidName': {
+    statusText: HttpStatus.BAD_REQUEST.description,
+    statusCode: HttpStatus.BAD_REQUEST.code,
+    errorMessage: 'Invalid name',
+    userMessage: {
+      en: 'Name must be at least 6 character long',
+      az: 'Ad ən az 6 simvol olmalıdır',
+      ru: 'Имя должно быть не менее 6 символов',
+    },
+  },
   /** -----------------------USER ERRORS-----------------------*/
   'user:notFound': {
     statusText: HttpStatus.NOT_FOUND.description,
@@ -76,3 +106,15 @@ export const errorMessagesConstants = {
     },
   },
 } as const satisfies Record<string, IErrorMessages>;
+
+export const errorMessageKeys = Object.keys(errorMessagesConstants).reduce(
+  (acc, key) => {
+    acc[key as keyof typeof errorMessagesConstants] =
+      key as keyof typeof errorMessagesConstants;
+    return acc;
+  },
+  {} as Record<
+    keyof typeof errorMessagesConstants,
+    keyof typeof errorMessagesConstants
+  >,
+);

@@ -50,12 +50,16 @@ export class MessageCodeError extends Error {
     return errorMessagesConstants[messageCode];
   }
 
-  public static localize(exception: MessageCodeError, language: Language) {
+  public static localize(
+    messageCode: ErrorMessageCode,
+    language: Language,
+    errorBody?: string,
+  ) {
     const userMessage =
-      errorMessagesConstants[exception.messageCode].userMessage[language];
+      errorMessagesConstants[messageCode].userMessage[language];
 
-    if (exception.errorBody) {
-      return userMessage.replace('{{errorBody}}', exception.errorBody);
+    if (errorBody) {
+      return userMessage.replace('{{errorBody}}', errorBody);
     }
 
     return userMessage;

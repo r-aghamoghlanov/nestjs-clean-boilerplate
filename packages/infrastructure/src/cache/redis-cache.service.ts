@@ -26,7 +26,10 @@ export class RedisCacheService implements ICacheService {
     }) as RedisClientType;
 
     this.setupEventHandlers();
-    this.connect();
+    this.connect().catch((error) => {
+      this.logger.error('Failed to connect to Redis:', error);
+      throw error;
+    });
   }
 
   async set<T>(key: string, value: T, ttl?: number): Promise<void> {

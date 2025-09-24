@@ -4,13 +4,13 @@ import type { ICacheManager } from '@backend/core/cache/cache-manager.interface'
 import type { IUserRepository } from '@backend/core/user/application/repositories/user.repository.interface';
 import { CUSTOM_PROVIDER_TOKENS } from './provider-tokens';
 import { RepositoryModule } from './repository.module';
-import { CacheModule } from './cache-manager.module';
+import { CacheManagerModule } from './cache-manager.module';
 
 @Module({
   imports: [
     // Import repository module to get repository implementations
     RepositoryModule,
-    CacheModule,
+    CacheManagerModule,
   ],
   providers: [
     {

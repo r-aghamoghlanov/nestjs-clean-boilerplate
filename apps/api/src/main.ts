@@ -86,4 +86,4 @@ async function bootstrap() {
     .catch((err) => logger.error('Error starting the server', err));
 }
 
-void bootstrap();
+bootstrap().catch(console.error);

@@ -9,7 +9,7 @@ import { Logger } from './logger.interface';
  *
  * @example
  * ```ts
- * import { LoggerRegistry } from '@common/logger/logger-registry';
+ * import { LoggerRegistry } from '@backend/core/common/logger/logger-registry';
  *
  * export class ExampleService {
  *  private readonly logger = LoggerRegistry.createLogger(ExampleService.name);

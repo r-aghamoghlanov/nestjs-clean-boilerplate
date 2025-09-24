@@ -18,10 +18,16 @@
     "test:api:e2e": "pnpm --filter api test:e2e",
     "lint:api": "pnpm --filter api lint",
     "start:ui:dev": "pnpm --filter ui start:dev",
-    "dev": "pnpm run --parallel --filter \"./apps/**\" start:dev",
-    "build": "pnpm run --recursive --filter \"./apps/**\" build",
-    "test": "pnpm run --recursive --filter \"./apps/**\" start:test",
-    "lint": "pnpm run --recursive --filter \"./apps/**\" start:lint"
+    "dev:pnpm": "pnpm run --parallel --filter \"./apps/**\" start:dev",
+    "build:pnpm": "pnpm run --recursive --filter \"./apps/**\" build",
+    "test:pnpm": "pnpm run --recursive --filter \"./apps/**\" start:test",
+    "lint:pnpm": "pnpm run --recursive --filter \"./apps/**\" start:lint",
+    "build": "turbo build",
+    "test": "turbo test",
+    "lint": "turbo lint",
+    "dev": "turbo dev",
+    "prod": "turbo prod",
+    "clean": "turbo clean"
   },
   "devDependencies": {
     "prettier": "^3.4.2",

@@ -2,6 +2,9 @@
   "name": "@backend/core",
   "version": "1.0.0",
   "description": "Core layer for the application",
+  "author": "Rustam Aghamoghlanov",
+  "private": true,
+  "license": "UNLICENSED",
   "exports": {
     "./cache/*": {
       "types": "./src/cache/*.ts",
@@ -24,10 +27,15 @@
     "lint": "eslint src/**/*.ts",
     "clean": "rm -rf dist"
   },
-  "keywords": [],
-  "author": "Rustam Aghamoghlanov",
-  "license": "ISC",
-  "packageManager": "pnpm@10.15.0",
+  "scriptDescriptions": {
+    "build": "Build the project",
+    "build:watch": "Build the project in watch mode",
+    "test": "Run tests",
+    "test:watch": "Run tests in watch mode",
+    "lint": "Lint the project",
+    "clean": "Clean the project"
+  },
+  "packageManager": "pnpm@10.15.1",
   "publishConfig": {
     "access": "restricted"
   },

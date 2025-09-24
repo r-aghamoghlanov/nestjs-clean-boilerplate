@@ -7,6 +7,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "build": "nest build",
+    "clean": "rm -rf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "dev": "nest start --watch",
     "debug": "nest start --debug --watch",
@@ -20,6 +21,7 @@
   },
   "scriptDescriptions": {
     "build": "Build the project",
+    "clean": "Delete the dist folder",
     "format": "Format the code with prettier",
     "dev": "Start the project in development mode",
     "debug": "Start the project in debug mode",

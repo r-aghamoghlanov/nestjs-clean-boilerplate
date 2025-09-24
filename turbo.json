@@ -9,6 +9,9 @@
       "persistent": true,
       "cache": false
     },
+    "prod": {
+      "dependsOn": ["build"]
+    },
     "lint": {
       "dependsOn": ["^lint"]
     },
@@ -16,6 +19,7 @@
     "test": {
       "cache": false,
       "inputs": ["**/*.test.ts", "**/*.test.tsx", "vitest.config.ts"]
-    }
+    },
+    "clean": {}
   }
 }

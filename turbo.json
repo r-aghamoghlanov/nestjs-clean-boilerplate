@@ -20,6 +20,8 @@
       "cache": false,
       "inputs": ["**/*.test.ts", "**/*.test.tsx", "vitest.config.ts"]
     },
-    "clean": {}
+    "clean": {
+      "cache": false
+    }
   }
 }

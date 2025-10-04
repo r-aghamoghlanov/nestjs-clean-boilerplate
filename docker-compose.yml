@@ -1,0 +1,31 @@
+services:
+  worker:
+    container_name: worker
+    build:
+      context: .
+      dockerfile: ./apps/worker/Dockerfile
+    restart: always
+    ports:
+      - 8000:8000
+    env_file:
+      - ./apps/worker/.env
+    networks:
+      - app_network
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    restart: always
+    ports:
+      - 3000:3000
+    env_file:
+      - ./apps/api/.env
+    networks:
+      - app_network
+
+# Define a network, which allows containers to communicate
+# with each other, by using their container name as a hostname
+networks:
+  app_network:
+    driver: bridge

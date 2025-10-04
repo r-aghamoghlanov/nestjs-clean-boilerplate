@@ -1,0 +1,27 @@
+services:
+  postgres:
+    container_name: database_dev_container
+    image: postgres:17-alpine
+    restart: always
+    environment:
+      POSTGRES_DB: clean-architecture-boilerplate
+      POSTGRES_USER: rustam
+      POSTGRES_HOST_AUTH_METHOD: trust
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - app_network
+
+  redis:
+    container_name: redis_dev_container
+    image: redis:alpine
+    restart: always
+    networks:
+      - app_network
+
+volumes:
+  postgres_data:
+
+networks:
+  app_network:
+    driver: bridge

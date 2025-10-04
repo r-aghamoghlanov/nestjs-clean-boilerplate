@@ -34,6 +34,7 @@ COPY --from=pruner /app/out/full/ .
 
 RUN pnpm turbo build --filter=api
 RUN pnpm prune --prod --no-optional
+RUN rm -rf ./**/*/src
 
 # --- RUNNER ---
 FROM alpine AS runner

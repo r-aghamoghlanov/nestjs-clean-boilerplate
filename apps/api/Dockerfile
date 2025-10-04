@@ -1,42 +1,48 @@
-FROM node:22-alpine AS base
-
-# Enable corepack and activate pnpm
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-
-FROM base AS builder
+# --- ALPINE IMAGE ---
+FROM node:22-alpine AS alpine
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk update
 RUN apk add --no-cache libc6-compat
-# Set working directory
-WORKDIR /app
+
+# --- BASE ---
+# Setup pnpm and turbo on the alpine base
+FROM alpine AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 RUN pnpm add turbo --global
+
+# --- PRUNER ---
+# Prune the objects
+FROM base AS pruner
+WORKDIR /app
 COPY . .
 RUN turbo prune api --docker
 
-# Add lockfile and package.json's of isolated subworkspace
-FROM base AS installer
-RUN apk update
-RUN apk add --no-cache libc6-compat
+# --- BUILDER ---
+# Build the project and its dependencies
+FROM base AS builder
 WORKDIR /app
 
-# First install dependencies (as they change less often)
-COPY --from=builder /app/out/json/ .
+# Copy lockfile and package.json's of isolated subworkspace
+COPY --from=pruner /app/out/json/ .
+# First install the dependencies (as they change less often)
 RUN pnpm install
 
-# Build the project and its dependencies
-COPY --from=builder /app/out/full/ .
+# Copy source code of isolated subworkspace
+COPY --from=pruner /app/out/full/ .
 
-RUN pnpm turbo build
+RUN pnpm turbo build --filter=api
+RUN pnpm prune --prod --no-optional
 
-FROM base AS runner
-WORKDIR /app
-
+# --- RUNNER ---
+FROM alpine AS runner
 # Don't run production as root
 RUN addgroup --system --gid 1001 api
 RUN adduser --system --uid 1001 api
 USER api
-COPY --from=installer /app .
+
+WORKDIR /app
+COPY --from=builder /app .
 
 CMD ["node", "apps/api/dist/main.js"]

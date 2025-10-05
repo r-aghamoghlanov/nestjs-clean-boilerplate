@@ -254,7 +254,7 @@ importers:
         specifier: ^9.34.0
         version: 9.34.0
       typescript:
-        specifier: ~5.9.2
+        specifier: ^5.9.2
         version: 5.9.2
 
   packages/eslint-config:
@@ -278,7 +278,7 @@ importers:
         specifier: ^16.0.0
         version: 16.3.0
       typescript:
-        specifier: ~5.9.2
+        specifier: ^5.9.2
         version: 5.9.2
       typescript-eslint:
         specifier: ^8.20.0
@@ -318,7 +318,7 @@ importers:
         specifier: ^9.34.0
         version: 9.34.0
       typescript:
-        specifier: ~5.9.2
+        specifier: ^5.9.2
         version: 5.9.2
 
   packages/typescript-config: {}

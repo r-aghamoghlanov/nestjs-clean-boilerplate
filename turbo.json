@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/turbo/schema.json",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "dev": {
+      "persistent": true,
+      "cache": false
+    },
+    "prod": {
+      "dependsOn": ["build"]
+    },
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+    "check-types": {},
+    "test": {
+      "cache": false,
+      "inputs": ["**/*.test.ts", "**/*.test.tsx", "vitest.config.ts"]
+    },
+    "clean": {
+      "cache": false
+    }
+  }
+}

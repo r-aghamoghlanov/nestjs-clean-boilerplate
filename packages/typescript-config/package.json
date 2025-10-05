@@ -1,0 +1,9 @@
+{
+  "name": "@package/typescript-config",
+  "version": "1.0.0",
+  "description": "Typescript config for the project",
+  "author": "Rustam Aghamoghlanov",
+  "private": true,
+  "license": "UNLICENSED",
+  "packageManager": "pnpm@10.15.1"
+}

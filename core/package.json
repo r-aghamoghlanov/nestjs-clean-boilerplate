@@ -1,0 +1,49 @@
+{
+  "name": "@backend/core",
+  "version": "1.0.0",
+  "description": "Core layer for the application",
+  "author": "Rustam Aghamoghlanov",
+  "private": true,
+  "license": "UNLICENSED",
+  "exports": {
+    "./cache/*": {
+      "types": "./src/cache/*.ts",
+      "default": "./dist/cache/*.js"
+    },
+    "./common/*": {
+      "types": "./src/common/*.ts",
+      "default": "./dist/common/*.js"
+    },
+    "./user/*": {
+      "types": "./src/user/*.ts",
+      "default": "./dist/user/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "lint": "eslint src/**/*.ts",
+    "clean": "rm -rf dist"
+  },
+  "scriptDescriptions": {
+    "build": "Build the project",
+    "dev": "Build the project in watch mode",
+    "test": "Run tests",
+    "test:watch": "Run tests in watch mode",
+    "lint": "Lint the project",
+    "clean": "Delete dist folder"
+  },
+  "packageManager": "pnpm@10.15.1",
+  "publishConfig": {
+    "access": "restricted"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2",
+    "eslint": "^9.34.0",
+    "@types/node": "^22.10.7",
+    "@package/typescript-config": "workspace:*",
+    "@package/eslint-config": "workspace:*"
+  }
+}

@@ -1,64 +1,87 @@
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Monorepo App following Clean Architecture principles.\
+Powered by **TurboRepo**.
 
 ## Project setup
 
 ```bash
-$ npm install
+$ npm install -g pnpm
+```
+
+```bash
+$ pnpm add turbo --global
+
+# Install dependencies for all apps/packages
+$ pnpm install
+
+# Install depenencies for specific app/package
+$ pnpm install --filter <package OR appName>
 ```
 
 ## Compile and run the project
 
 ```bash
-# development
-$ npm run start
+# Run monorepo in dev mode
+$ turbo dev
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# Build all the apps/packages
+$ turbo build
+# Run monorepo in production
+$ turbo prod
 ```
 
 ## Run tests
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+# Unit tests
+$ turbo test
 ```
 
-## Deployment
+## Docker
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+**Prerequisites:**
+Make sure you have installed following tools on your local machine
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- docker
+- docker compose
+
+### Local Development
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+$ docker compose build
+
+# This will auto-load docker-compose.override.yml for local development
+$ docker compose up
+
+# If you want to stop all the running containers
+$ docker compose down
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+If you plan to use Docker containers for development make sure to update your environment variables in `.env` files
+
+- `DATABASE_HOST` - have to be equal to the `db` service container name.
+- `DATABASE_NAME` - have to be equal to the `POSTGRES_DB` env variable set for database service.
+- `DATABASE_USERNAME` - have to be equat to `POSTGRES_USER` env variable set for databas service.
+- `REDIS_HOST` - have to be equal the `redis` service container name.
+
+Check `docker-compose.override.yml` to see container names and environment variables.
+
+### Production
+
+```bash
+$ docker compose -f docker-compose.yml build
+$ docker compose -f docker-compose.yml up
+```
 
 ## Features
 
-- [x] Clear separation between Business & Domain Layers / Infrastructure Layer
+- [x] Clear separation between Application & Domain & Infrastructure Layers
 - [x] Agnostic Database Layer
   - [] Transactional Wrapper
   - [x] TypeORM integration
     - [x] TypeORM Main Configuration
-    - [x] Typeorm Migration Configuration
-- [ ] Agnostic Cron Jobs & Batch Jobs Processing Module
-  - [ ] BullMQ integration
-- [ ] Agnostic Mailer Module
-  - [ ] Nodemailer integration
+    - [x] TypeORM Migration Configuration
 - [x] Agnostic Cache Module
   - [x] Redis Cache Integration
   - [x] Basic In-Memory Cache as an Example
@@ -70,3 +93,23 @@ With Mau, you can deploy your application in just a few clicks, allowing you to 
 - [x] Env Configuration
 - [x] Zod validation + OpenAPI (Swagger) integration
 - [ ] File Upload & File Download
+- [ ] Agnostic Cron Jobs & Batch Jobs Processing Module
+  - [ ] BullMQ integration
+- [ ] Agnostic Mailer Module
+  - [ ] Nodemailer integration
+
+### MonoRepo Config
+
+- [x] Turborepo for controlling monorepo
+- [x] Eslint config
+- [x] Typescript config
+- [x] Apps workspace with worker & API boilerplates
+- [x] Core layer as a separate workspace
+- [x] Compiled (buildable) Internal Packages
+  - [x] Reusable typescript as package
+  - [x] Reusable eslint config as package
+  - [x] Infrastructure layer as package
+- [x] Docker
+  - [x] Optimized Dockerfiles for services
+  - [x] Docker container for running Migrations before running the main app containers
+  - [x] Docker compose for easy local development

@@ -1,0 +1,14 @@
+{
+  "extends": "@package/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "declaration": true,
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["src"]
+}

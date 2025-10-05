@@ -33,7 +33,7 @@
     "test": "Run tests",
     "test:watch": "Run tests in watch mode",
     "lint": "Lint the project",
-    "clean": "Clean the project"
+    "clean": "Delete dist folder"
   },
   "packageManager": "pnpm@10.15.1",
   "publishConfig": {

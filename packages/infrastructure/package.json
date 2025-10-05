@@ -40,7 +40,7 @@
     "test": "Run tests",
     "test:watch": "Run tests in watch mode",
     "lint": "Lint the project",
-    "clean": "Clean the project",
+    "clean": "Delete dist folder",
     "typeorm": "Run typeorm",
     "db:setup": "Drops and creates development database",
     "db:migration:generate": "Generate a new migration based on the state of the models (e.g. npm run db:migration:generate --name=user)",

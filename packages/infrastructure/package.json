@@ -32,7 +32,10 @@
     "db:migration:generate": "npm run typeorm -- migration:generate src/database/typeorm/migrations/$npm_config_name-migration",
     "db:migration:create": "npm run typeorm -- migration:create src/database/typeorm/migrations/$npm_config_name-migration",
     "db:migration:revert": "npm run typeorm -- migration:revert",
-    "db:migration:run": "npm run typeorm -- migration:run"
+    "db:migration:run": "npm run typeorm -- migration:run",
+    "typeorm:prod": "npx typeorm -d dist/database/typeorm/datasource/datasource.js",
+    "db:migration:run:prod": "npm run typeorm:prod -- migration:run",
+    "db:migration:revert:prod": "npm run typeorm:prod -- migration:revert"
   },
   "scriptDescriptions": {
     "build": "Build the project",
@@ -42,11 +45,13 @@
     "lint": "Lint the project",
     "clean": "Delete dist folder",
     "typeorm": "Run typeorm",
+    "typeorm:prod": "Run typeorm in production",
     "db:setup": "Drops and creates development database",
     "db:migration:generate": "Generate a new migration based on the state of the models (e.g. npm run db:migration:generate --name=user)",
     "db:migration:create": "Create a new empty migration (e.g. npm run db:migration:create --name=user)",
     "db:migration:revert": "Revert the last migration",
-    "db:migration:run": "Run all pending migrations"
+    "db:migration:run": "Run all pending migrations",
+    "db:migration:run:prod": "Run all pending migrations without building the project in production"
   },
   "keywords": [],
   "author": "Rustam Aghamoghlanov",
@@ -60,9 +65,7 @@
     "dotenv": "^17.2.1",
     "pino": "^9.9.0",
     "redis": "^4.7.1",
-    "zod": "^3.25.76"
-  },
-  "peerDependencies": {
+    "zod": "^3.25.76",
     "typeorm": "^0.3.26"
   },
   "devDependencies": {

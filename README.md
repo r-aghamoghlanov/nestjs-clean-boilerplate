@@ -58,6 +58,15 @@ $ docker compose up
 $ docker compose down
 ```
 
+If you plan to use Docker containers for development make sure to update your environment variables in `.env` files
+
+- `DATABASE_HOST` - have to be equal to the `db` service container name.
+- `DATABASE_NAME` - have to be equal to the `POSTGRES_DB` env variable set for database service.
+- `DATABASE_USERNAME` - have to be equat to `POSTGRES_USER` env variable set for databas service.
+- `REDIS_HOST` - have to be equal the `redis` service container name.
+
+Check `docker-compose.override.yml` to see container names and environment variables.
+
 ### Production
 
 ```bash

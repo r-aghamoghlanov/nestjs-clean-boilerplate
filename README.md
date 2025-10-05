@@ -78,7 +78,7 @@ $ docker compose -f docker-compose.yml up
 
 - [x] Clear separation between Application & Domain & Infrastructure Layers
 - [x] Agnostic Database Layer
-  - [] Transactional Wrapper
+  - [ ] Transactional Wrapper
   - [x] TypeORM integration
     - [x] TypeORM Main Configuration
     - [x] TypeORM Migration Configuration
@@ -100,9 +100,7 @@ $ docker compose -f docker-compose.yml up
 
 ### MonoRepo Config
 
-- [x] Turborepo for controlling monorepo
-- [x] Eslint config
-- [x] Typescript config
+- [x] Turborepo for managing monorepo
 - [x] Apps workspace with worker & API boilerplates
 - [x] Core layer as a separate workspace
 - [x] Compiled (buildable) Internal Packages

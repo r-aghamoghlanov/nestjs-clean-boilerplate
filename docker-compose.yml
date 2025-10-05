@@ -1,11 +1,9 @@
 services:
-  migrate:
-    container_name: migrate
+  migrator:
+    container_name: migrator
     build:
       context: .
       dockerfile: ./packages/infrastructure/Dockerfile.migrations
-    env_file:
-      - ./packages/infrastructure/.env 
     networks:
       - app_network
     restart: "no"  # Run once and exit
@@ -18,12 +16,10 @@ services:
     restart: always
     ports:
       - 8000:8000
-    env_file:
-      - ./apps/worker/.env
     networks:
       - app_network
     depends_on:
-      migrate:
+      migrator:
         condition: service_completed_successfully
   api:
     container_name: api
@@ -33,12 +29,10 @@ services:
     restart: always
     ports:
       - 3000:3000
-    env_file:
-      - ./apps/api/.env
     networks:
       - app_network
     depends_on:
-      migrate:
+      migrator:
         condition: service_completed_successfully
 
 # Define a network, which allows containers to communicate

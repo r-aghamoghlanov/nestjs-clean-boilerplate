@@ -1,5 +1,5 @@
 services:
-  postgres:
+  db:
     container_name: database_dev_container
     image: postgres:17-alpine
     restart: always
@@ -18,10 +18,26 @@ services:
     restart: always
     networks:
       - app_network
+  
+  migrator:
+    env_file:
+      - ./packages/infrastructure/.env
+    depends_on:
+      - db
+  
+  worker:
+    env_file:
+      - ./apps/worker/.env
+    depends_on:
+      - db
+      - redis
+  
+  api:
+    env_file:
+      - ./apps/api/.env
+    depends_on:
+      - db
+      - redis
 
 volumes:
   postgres_data:
-
-networks:
-  app_network:
-    driver: bridge
